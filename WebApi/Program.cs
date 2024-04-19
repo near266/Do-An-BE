@@ -26,6 +26,7 @@ builder.Services.AddScoped<ICustomerSupportDbContext, CustomerSupportDatabaseCon
 builder.Services.AddMediatR(c=>c.RegisterServicesFromAssemblyContaining<Program>());
 builder.Services.AddMediatRModule(builder.Configuration);
 builder.Services.AddIdentityJwt(builder.Configuration);
+builder.Services.AddMailModule(builder.Configuration);
 builder.Services.SetupHealthCheck();
 
 

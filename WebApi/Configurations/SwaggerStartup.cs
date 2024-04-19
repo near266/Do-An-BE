@@ -7,6 +7,7 @@ namespace WebApi.Configurations
         public static IServiceCollection AddSwaggerModule(this IServiceCollection services)
         {
             services.AddEndpointsApiExplorer();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "API Gateway Web", Version = "v1" });

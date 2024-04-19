@@ -16,6 +16,7 @@ using WebApi.Application.Exceptions;
 using WebApi.Configurations;
 using WebApi.Modules.Constants;
 using WebApi.Modules.Dtos;
+using WebApi.Modules.Email.Interface;
 using WebApi.Modules.User.Domain.Entites;
 using WebApi.Shared.Constants;
 using WebApi.Wrappers;
@@ -27,7 +28,8 @@ namespace WebApi.Modules.User.Infrastructure.Persistence.Repositories
 {
     public class UserRepository(UserManager<UserIdentity> userManager, RoleManager<IdentityRole> roleManager, IConfiguration config,
          JWTSettings jwtSettings,
-         SignInManager<UserIdentity> signInManager
+         SignInManager<UserIdentity> signInManager,
+         IEmailServices emailServices
         ) : IUserRepository
     {
         public async Task<ServiceResponses.GeneralResponse> CreateAccount(UserDtos userDTO)
@@ -114,7 +116,6 @@ namespace WebApi.Modules.User.Infrastructure.Persistence.Repositories
                 roleClaims.Add(new Claim("roles", roles[i]));
             }
 
-           // string ipAddress = IpHelper.GetIpAddress();
 
             var claims = new[]
             {
@@ -122,7 +123,6 @@ namespace WebApi.Modules.User.Infrastructure.Persistence.Repositories
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(JwtRegisteredClaimNames.Email, user.Email),
                 new Claim("uid", user.Id),
-              //  new Claim("ip", ipAddress)
             }
             .Union(userClaims)
             .Union(roleClaims);
@@ -147,18 +147,17 @@ namespace WebApi.Modules.User.Infrastructure.Persistence.Repositories
             if ( checkAcount==null) return;
             var code = await userManager.GeneratePasswordResetTokenAsync(checkAcount);
             var route = "api/account/reset-password/";
-            var _enpointUri = new Uri(string.Concat($"{origin}/", route));
             var emailRequest = new EmailRequest()
             {
                 Body = $"You reset token is - {code}",
                 To = model.Email,
                 Subject = "Reset Password",
             };
-           
+            await emailServices.SendAsync(emailRequest);
         }
         public async Task<Response<string>> ResetPassword(ResetPasswordRequest model)
         {
-            var account = await userManager.FindByEmailAsync(model.UserName);
+            var account = await userManager.FindByNameAsync(model.UserName);
             if (account == null) throw new ApiException($"No Accounts Registered with {model.UserName}.");
             var result = await userManager.ResetPasswordAsync(account, model.Token, model.Password);
             if (result.Succeeded)

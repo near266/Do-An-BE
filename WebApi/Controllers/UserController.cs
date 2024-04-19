@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using WebApi.Application.Contracts.Persistence;
 using WebApi.Modules.Dtos;
+using WebApi.Wrappers.DTOS.EmailDtos;
 
 
 namespace WebApi.Controllers
@@ -10,7 +11,12 @@ namespace WebApi.Controllers
     [ApiController]
     public class UserController(IUserRepository _userRepository) : ControllerBase
     {
-      
+        [HttpPost("forgot-password")]
+        public async Task<IActionResult> ForgotPassword(ForgotPasswordRequest model)
+        {
+            await _userRepository.ForgotPassword(model, Request.Headers["origin"]);
+            return Ok();
+        }
         [HttpPost("register")]
         public async Task<IActionResult> Register(UserDtos userDTO)
         {
@@ -22,6 +28,12 @@ namespace WebApi.Controllers
         {
             var response = await _userRepository.LoginAccount(loginDTO);
             return Ok(response);
+        }
+        [HttpPost("reset-password")]
+        public async Task<IActionResult> ResetPassword(ResetPasswordRequest model)
+        {
+
+            return Ok(await _userRepository.ResetPassword(model));
         }
     }
 }

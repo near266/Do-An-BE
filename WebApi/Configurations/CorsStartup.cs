@@ -8,6 +8,7 @@ namespace WebApi.Configurations
     {
         public static IServiceCollection AddCorsModule(this IServiceCollection services, IConfiguration configuration)
         {
+
             return services;
         }
 
