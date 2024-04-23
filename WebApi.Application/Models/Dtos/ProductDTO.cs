@@ -9,19 +9,19 @@ namespace WebApi.Application.Models.Dtos
 {
     public class ProductDTO
     {
-        public Guid? id { get; set; }
-        public string? product_id { get; set; }
-        public string? product_name { get; set; }
-        public string? product_description { get; set; }
-        public double? product_price { get; set; }
-        public double? product_sale_price { get; set; }
-        public int? status { get; set; }
-        public List<string>? image { get; set; }
-        public string? title_video { get; set; }
-        public string? link_video { get; set; }
-        public string? created_by { get; set; }
-        public DateTime? created_date { get; set; }
-        public string? last_modified_by { get; set; }
-        public DateTime? last_modified_date { get; set; }
+        public Guid? Id { get; set; }
+        public string? Product_id { get; set; }
+        public string? Product_name { get; set; }
+        public string? Product_description { get; set; }
+        public double? Product_price { get; set; }
+        public double? Product_sale_price { get; set; }
+        public int? Status { get; set; }
+        public List<string>? Image { get; set; }
+        public string? Title_video { get; set; }
+        public string? Link_video { get; set; }
+        public string? Created_by { get; set; }
+        public DateTime? Created_date { get; set; }
+        public string? Last_modified_by { get; set; }
+        public DateTime? Last_modified_date { get; set; }
     }
 }

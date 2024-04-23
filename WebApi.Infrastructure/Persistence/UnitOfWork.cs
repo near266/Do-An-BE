@@ -1,6 +1,5 @@
 using System.Transactions;
-
-
+using AutoMapper;
 using Microsoft.EntityFrameworkCore.Storage;
 using WebApi.Application.Contracts.Persistence;
 using WebApi.Application.Exceptions;
@@ -13,6 +12,7 @@ namespace WebApi.Infrastructure.Persistence
     public class UnitOfWork : IUnitOfWork
     {
         private IDbContextTransaction? _transaction;
+        private IMapper _mapper;
         private bool _disposed;
         //
         private readonly CustomerSupportDatabaseContext _context;
@@ -21,16 +21,16 @@ namespace WebApi.Infrastructure.Persistence
 
         public ICustomerRepository CustomerRepository { get; }
         public IProductRepository ProductRepository { get; }
-        public ISalesRepository teleSalesRepository { get; }
-     
+        public ISalesRepository TeleSalesRepository { get; }
+
         //
-        public UnitOfWork(CustomerSupportDatabaseContext dbContext)
+        public UnitOfWork(CustomerSupportDatabaseContext dbContext, IMapper mapper)
         {
             _context = dbContext;
-
-           CustomerRepository = new CustomerRepositoty(_context);
-           ProductRepository = new ProductRepository(_context);
-          teleSalesRepository = new SaleRepository(_context);
+            _mapper = mapper;
+            CustomerRepository = new CustomerRepositoty(_context, _mapper);
+            ProductRepository = new ProductRepository(_context);
+            TeleSalesRepository = new SaleRepository(_context);
         }
 
         // save changes

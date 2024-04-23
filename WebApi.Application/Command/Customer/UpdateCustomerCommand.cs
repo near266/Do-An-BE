@@ -15,7 +15,7 @@ namespace WebApi.Application.Command
 {
     public class UpdateCustomerCommand : IRequest<CustomerDTO>
     {
-        public CustomerDTO? customer { get; set; }
+        public CustomerDTO? Customer { get; set; }
     }
     public class UpdateCustomerCommandHandler : IRequestHandler<UpdateCustomerCommand, CustomerDTO>
     {
@@ -32,10 +32,10 @@ namespace WebApi.Application.Command
         public async Task<CustomerDTO> Handle(UpdateCustomerCommand request, CancellationToken cancellationToken)
         {
             _logger.LogInformation("UpdateComand");
-            var cus = await _unitOfWork.CustomerRepository.FirstOrDefaultAsync(x => x.id == request.customer.Id);
-            var map = _mapper.Map(request.customer, cus);   
+            var cus = await _unitOfWork.CustomerRepository.FirstOrDefaultAsync(x => x.Id == request.Customer.Id);
+            var map = _mapper.Map(request.Customer, cus);
             await _unitOfWork.ExecuteTransactionAsync(() => _unitOfWork.CustomerRepository.Update(map), cancellationToken);
-            return request.customer;
+            return request.Customer;
         }
     }
 }

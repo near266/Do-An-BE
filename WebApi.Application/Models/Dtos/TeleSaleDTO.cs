@@ -8,21 +8,21 @@ namespace WebApi.Application.Models.Dtos
 {
     public class TeleSaleDTO
     {
-        public Guid? id { get; set; }
-        public string? userId { get; set; }
-        public string? name { get; set; }
-        public string? phoneNumber { get; set; }
-        public DateTime? birthday { get; set; }
-        public int? gender { get; set; }
-        public string? email { get; set; }
-        public string? taxcode { get; set; }
-        public string? note { get; set; }
-        public int? status { get; set; }
-    
-        public string? created_by { get; set; }
-        public DateTime? created_date { get; set; }=DateTime.Now;
-     
-        public string? last_modified_by { get; set; }
-        public DateTime? last_modified_date { get; set; }
+        public Guid? Id { get; set; }
+        public string? UserId { get; set; }
+        public string? Name { get; set; }
+        public string? PhoneNumber { get; set; }
+        public DateTime? Birthday { get; set; }
+        public int? Gender { get; set; }
+        public string? Email { get; set; }
+        public string? Taxcode { get; set; }
+        public string? Note { get; set; }
+        public int? Status { get; set; }
+
+        public string? Created_by { get; set; }
+        public DateTime? Created_date { get; set; } = DateTime.UtcNow;
+
+        public string? Last_modified_by { get; set; }
+        public DateTime? Last_modified_date { get; set; }
     }
 }

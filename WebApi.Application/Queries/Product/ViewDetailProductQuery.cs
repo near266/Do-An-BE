@@ -31,7 +31,7 @@ namespace WebApi.Application.Queries.Product
         public async Task<ProductDTO> Handle(ViewDetailProductQuery request, CancellationToken cancellationToken)
         {
 
-            var rq = await _unitOfWork.ProductRepository.FirstOrDefaultAsync(x => x.id == request.id);
+            var rq = await _unitOfWork.ProductRepository.FirstOrDefaultAsync(x => x.Id == request.id);
             var result = _mapper.Map<ProductDTO>(rq);
             return result;
         }

@@ -5,9 +5,9 @@ namespace WebApi.Application.Contracts.Persistence
 {
     public interface IUnitOfWork
     {
-       ICustomerRepository CustomerRepository { get; }
+        ICustomerRepository CustomerRepository { get; }
         IProductRepository ProductRepository { get; }
-        ISalesRepository teleSalesRepository { get; }
+        ISalesRepository TeleSalesRepository { get; }
 
         /// <summary>
         /// Saves changes to the database. This is called when the user changes the data or saves a new version of the data.

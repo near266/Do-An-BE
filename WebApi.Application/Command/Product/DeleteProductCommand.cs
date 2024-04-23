@@ -30,7 +30,7 @@ namespace WebApi.Application.Command.Product
         public async Task<int> Handle(DeleteProductCommand request, CancellationToken cancellationToken)
         {
 
-            var cus = await _unitOfWork.ProductRepository.FirstOrDefaultAsync(x => x.id == request.id);
+            var cus = await _unitOfWork.ProductRepository.FirstOrDefaultAsync(x => x.Id == request.id);
             await _unitOfWork.ExecuteTransactionAsync(() => _unitOfWork.ProductRepository.Delete(cus), cancellationToken);
 
             return 1;

@@ -24,9 +24,21 @@ namespace WebApi.Controllers
             return Ok(response);
         }
         [HttpPost("authenticate")]
-        public async Task<IActionResult> authenticate(LoginDTO loginDTO)
+        public async Task<IActionResult> Authenticate(LoginDTO loginDTO)
         {
             var response = await _userRepository.LoginAccount(loginDTO);
+            return Ok(response);
+        }
+        [HttpPost("logout")]
+        public async Task<IActionResult> Logout(RefreshTokenDTO token)
+        {
+            var response = await _userRepository.LogoutAccount(token);
+            return Ok(response);
+        }
+        [HttpPost("refresh-token")]
+        public async Task<IActionResult> RefreshToken(RefreshTokenDTO token)
+        {
+            var response = await _userRepository.RefreshToken(token);
             return Ok(response);
         }
         [HttpPost("reset-password")]

@@ -9,23 +9,22 @@ namespace WebApi.Application.Models.Dtos
 {
     public class CustomerDTO
     {
-        public  Guid? Id { get; set; }  = Guid.NewGuid();
-        public string? name { get; set; }
-        public string? customer_id { get; set; }
-        public string? phoneNumber { get; set; }
-        public int? type { get; set; }
-        public DateTime? birthday { get; set; }
-        public string? note { get; set; }
-        public string? taxcode { get; set; }
-        public int? status { get; set; }
-        public string? email { get; set; }
-        public int? gender { get; set; }
-        public DateTime? lastEngagementDate { get; set; }
+        public Guid? Id { get; set; } = Guid.NewGuid();
+        public string? Name { get; set; }
+        public string? Customer_id { get; set; }
+        public string? PhoneNumber { get; set; }
+        public int? Type { get; set; }
+        public DateTime? Birthday { get; set; }
+        public string? Note { get; set; }
+        public string? Taxcode { get; set; }
+        public int? Status { get; set; }
+        public string? Email { get; set; }
+        public int? Gender { get; set; }
+        public DateTime? LastEngagementDate { get; set; }
+        public string? Created_by { get; set; }
+        public DateTime? Created_date { get; set; }
 
-        public string? created_by { get; set; }
-        public DateTime? created_date { get; set; }
-  
-        public string? last_modified_by { get; set; }
-        public DateTime? last_modified_date { get; set; }
+        public string? Last_modified_by { get; set; }
+        public DateTime? Last_modified_date { get; set; }
     }
 }

@@ -8,15 +8,15 @@ namespace WebApi.Domain.Entites
 {
     public class TeleSales : BaseEntity<Guid>
     {
-        public string? userId { get; set; }
-        public string? name { get; set; }
-        public string? phoneNumber { get; set; }
-        public DateTime? birthday { get; set; }
-        public int? gender { get; set; }
-        public string? email {  get; set; } 
-        public string? taxcode { get; set; }
-        public string? note { get; set; }
-        public int? status { get; set; }   
-        
+        public string? UserId { get; set; }
+        public string? Name { get; set; }
+        public string? PhoneNumber { get; set; }
+        public DateTime? Birthday { get; set; }
+        public int? Gender { get; set; }
+        public string? Email { get; set; }
+        public string? Taxcode { get; set; }
+        public string? Note { get; set; }
+        public int? Status { get; set; }
+
     }
 }

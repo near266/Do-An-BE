@@ -15,7 +15,7 @@ namespace WebApi.Application.Command.TeleSale
 {
     public class CreateTeleSaleCommand : IRequest<TeleSaleDTO>
     {
-        public TeleSaleDTO? teleSaleDTO { get; set; }   
+        public TeleSaleDTO? teleSaleDTO { get; set; }
 
     }
     public class CreateTeleSaleCommandHandler : IRequestHandler<CreateTeleSaleCommand, TeleSaleDTO>
@@ -34,7 +34,7 @@ namespace WebApi.Application.Command.TeleSale
         {
 
             var map = _mapper.Map<TeleSales>(request.teleSaleDTO);
-            await _unitOfWork.ExecuteTransactionAsync(async () => await _unitOfWork.teleSalesRepository.AddAsync(map), cancellationToken);
+            await _unitOfWork.ExecuteTransactionAsync(async () => await _unitOfWork.TeleSalesRepository.AddAsync(map), cancellationToken);
             return request.teleSaleDTO;
         }
     }

@@ -9,15 +9,15 @@ using System.Threading.Tasks;
 
 namespace WebApi.Domain.Entites
 {
-    public class Category 
+    public class Category
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid? id { get; set; }
-        public string? name { get; set; }
-        public string? description { get; set; } = null;
-        public string? title { get; set; }  
-        public List<string>? image { get; set; }
+        public Guid? Id { get; set; }
+        public string? Name { get; set; }
+        public string? Description { get; set; } = null;
+        public string? Title { get; set; }
+        public List<string>? Image { get; set; }
         public virtual ICollection<Product_Category>? Product_Categories { get; set; }
     }
 }

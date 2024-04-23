@@ -12,8 +12,8 @@ namespace WebApi.Application.AutoMapper
 {
     public class AutoMapperProfile : Profile
     {
-    public AutoMapperProfile() 
-        { 
+        public AutoMapperProfile()
+        {
             CreateMap<Customers, Customers>().ReverseMap().ForAllMembers(x => x.Condition((source, target, sourceValue) => sourceValue != null));
             CreateMap<CustomerDTO, Customers>().ReverseMap().ForAllMembers(x => x.Condition((source, target, sourceValue) => sourceValue != null));
             CreateMap<Pagination<CustomerDTO>, Pagination<Customers>>().ReverseMap().ForAllMembers(x => x.Condition((source, target, sourceValue) => sourceValue != null));

@@ -13,8 +13,8 @@ namespace WebApi.Domain.Entites
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
-        public Guid? category_id { get; set; }
-        public Guid? product_id { get; set; }
+        public Guid? Category_id { get; set; }
+        public Guid? Product_id { get; set; }
         public virtual Product? Product { get; set; }
         public virtual Category? Category { get; set; }
     }

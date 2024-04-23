@@ -17,7 +17,6 @@ namespace WebApi.Application.Contracts.Persistence
            int pageIndex = 0,
            int pageSize = 10);
         public Task<Pagination<T>> ToPagination(int pageIndex, int pageSize);
-
         public Task<T> FirstOrDefaultAsync(Expression<Func<T, bool>> filter);
         public void Update(T entity);
         public void UpdateRange(IEnumerable<T> entities);
