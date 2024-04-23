@@ -33,7 +33,7 @@ namespace WebApi.Application.Queries.TeleSale
         public async Task<Pagination<TeleSaleDTO>> Handle(ViewListTeleSaleQuery request, CancellationToken cancellationToken)
         {
             _logger.LogInformation("View List Sale");
-            var cus = await _unitOfWork.teleSalesRepository.ToPagination(request.page, request.pageSize);
+            var cus = await _unitOfWork.TeleSalesRepository.ToPagination(request.page, request.pageSize);
             var map = _mapper.Map<Pagination<TeleSaleDTO>>(cus);
             return map;
         }

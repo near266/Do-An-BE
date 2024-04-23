@@ -16,5 +16,7 @@ namespace WebApi.Application.Contracts.Persistence
         Task<Response<AuthenticationResponse>> GetUserByUserName(string? UserName);
         Task ForgotPassword(ForgotPasswordRequest model, string origin);
         Task<Response<string>> ResetPassword(ResetPasswordRequest model);
+        Task<GeneralResponse> LogoutAccount(RefreshTokenDTO token);
+        Task<Response<AuthenticationResponse>> RefreshToken(RefreshTokenDTO token);
     }
 }

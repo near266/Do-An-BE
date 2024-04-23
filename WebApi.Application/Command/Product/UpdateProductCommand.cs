@@ -13,7 +13,7 @@ namespace WebApi.Application.Command.Product
 {
     public class UpdateProductCommand : IRequest<ProductDTO>
     {
-        public ProductDTO ProductDto { get; set; } 
+        public ProductDTO ProductDto { get; set; }
     }
     public class UpdateProductCommandHandler : IRequestHandler<UpdateProductCommand, ProductDTO>
     {
@@ -30,7 +30,7 @@ namespace WebApi.Application.Command.Product
         public async Task<ProductDTO> Handle(UpdateProductCommand request, CancellationToken cancellationToken)
         {
             _logger.LogInformation("Update Command");
-            var rq = await _unitOfWork.ProductRepository.FirstOrDefaultAsync(x => x.id == request.ProductDto.id);
+            var rq = await _unitOfWork.ProductRepository.FirstOrDefaultAsync(x => x.Id == request.ProductDto.Id);
             var map = _mapper.Map(request.ProductDto, rq);
             await _unitOfWork.ExecuteTransactionAsync(() => _unitOfWork.ProductRepository.Update(map), cancellationToken);
             return request.ProductDto;

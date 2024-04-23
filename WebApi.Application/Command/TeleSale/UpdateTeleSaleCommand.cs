@@ -31,9 +31,9 @@ namespace WebApi.Application.Command.TeleSale
         public async Task<TeleSaleDTO> Handle(UpdateTeleSaleCommand request, CancellationToken cancellationToken)
         {
             _logger.LogInformation("Update Command");
-            var rq = await _unitOfWork.teleSalesRepository.FirstOrDefaultAsync(x => x.id == request.TeleSaleDTO.id);
+            var rq = await _unitOfWork.TeleSalesRepository.FirstOrDefaultAsync(x => x.Id == request.TeleSaleDTO.Id);
             var map = _mapper.Map(request.TeleSaleDTO, rq);
-            await _unitOfWork.ExecuteTransactionAsync(() => _unitOfWork.teleSalesRepository.Update(map), cancellationToken);
+            await _unitOfWork.ExecuteTransactionAsync(() => _unitOfWork.TeleSalesRepository.Update(map), cancellationToken);
             return request.TeleSaleDTO;
         }
     }

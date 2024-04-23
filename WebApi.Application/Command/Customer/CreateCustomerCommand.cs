@@ -15,7 +15,7 @@ namespace WebApi.Application.Command.Customer
 {
     public class CreateCustomerCommand : IRequest<CustomerDTO>
     {
-        public CustomerDTO? customer { get; set; }
+        public CustomerDTO? Customer { get; set; }
     }
     public class CreateCustomerCommandHandler : IRequestHandler<CreateCustomerCommand, CustomerDTO>
     {
@@ -32,9 +32,9 @@ namespace WebApi.Application.Command.Customer
         public async Task<CustomerDTO> Handle(CreateCustomerCommand request, CancellationToken cancellationToken)
         {
 
-            var map = _mapper.Map<Customers>(request.customer);
+            var map = _mapper.Map<Customers>(request.Customer);
             await _unitOfWork.ExecuteTransactionAsync(async () => await _unitOfWork.CustomerRepository.AddAsync(map), cancellationToken);
-            return request.customer;
+            return request.Customer;
         }
     }
 }

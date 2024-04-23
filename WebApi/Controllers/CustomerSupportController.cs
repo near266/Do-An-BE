@@ -30,13 +30,13 @@ namespace WebApi.Controllers
         private readonly IMapper _mapper;
 
 
-        public CustomerSupportController(ILogger<CustomerSupportController> logger, IConfiguration configuration, IMediator mediator,IUserRepository userRepository,IMapper mapper)
+        public CustomerSupportController(ILogger<CustomerSupportController> logger, IConfiguration configuration, IMediator mediator, IUserRepository userRepository, IMapper mapper)
         {
             _logger = logger;
             _configuration = configuration;
             _mediator = mediator;
             _userRepository = userRepository;
-            _mapper=mapper;
+            _mapper = mapper;
         }
         private string? GetUserIdFromConext()
         {
@@ -47,7 +47,7 @@ namespace WebApi.Controllers
         {
             return User.FindFirst(ClaimTypes.Role)?.Value;
         }
-        [HttpPost("Admin/createSaleAccount")]
+        [HttpPost("admin/create-sale-account")]
         [Authorize]
         public async Task<IActionResult> createSaleAccount([FromBody] RegisterSale rq)
         {
@@ -60,8 +60,8 @@ namespace WebApi.Controllers
             Account.ConfirmPassword = rq.Password;
             await _userRepository.CreateAccount(Account);
             var rqSale = _mapper.Map<TeleSaleDTO>(rq);
-            var user= await _userRepository.GetUserByUserName(Account.UserName);
-            rqSale.userId = user.Data.Id;
+            var user = await _userRepository.GetUserByUserName(Account.UserName);
+            rqSale.UserId = user.Data.Id;
             InfoSale.teleSaleDTO = rqSale;
             var response = await _mediator.Send(InfoSale);
 
@@ -69,7 +69,7 @@ namespace WebApi.Controllers
             return Ok(response);
 
         }
-        [HttpPost("teleSale/Detail")]
+        [HttpPost("telesale/detail")]
         [Authorize]
         public async Task<IActionResult> DetailTeleSale([FromBody] ViewDetailTeleSaleQuery rq)
         {
@@ -78,7 +78,7 @@ namespace WebApi.Controllers
             return Ok(response);
 
         }
-        [HttpPost("teleSale/List")]
+        [HttpPost("telesale/list")]
         [Authorize]
         public async Task<IActionResult> ListTeleSale([FromBody] ViewListTeleSaleQueryHandler rq)
         {
@@ -96,7 +96,7 @@ namespace WebApi.Controllers
             return Ok(response);
 
         }
-        [HttpPost("customer/Update")]
+        [HttpPost("customer/update")]
         [Authorize]
         public async Task<IActionResult> UpdateCustomer([FromBody] UpdateCustomerCommand rq)
         {
@@ -105,7 +105,7 @@ namespace WebApi.Controllers
             return Ok(response);
 
         }
-        [HttpDelete("customer/Delete")]
+        [HttpDelete("customer/delete")]
         [Authorize]
         public async Task<IActionResult> DeleteCustomer([FromBody] DeleteCustomerCommand rq)
         {
@@ -114,27 +114,28 @@ namespace WebApi.Controllers
             return Ok(response);
 
         }
-        [HttpGet("customer/ViewDetail{id}")]
+        [HttpGet("customer/view-detail/{id}")]
         [Authorize]
-        public async Task<IActionResult> ViewDetailCustomer([FromQuery] ViewDetailCustomer rq)
+        public async Task<IActionResult> ViewDetailCustomer([FromRoute] string id)
         {
-            _logger.LogInformation("Controller Delete Customer");
+            _logger.LogInformation("Controller View Detail Customer");
+            var rq = new ViewDetailCustomer { Id = id };
             var response = await _mediator.Send(rq);
             return Ok(response);
 
         }
-        [HttpPost("customer/ViewList")]
+        [HttpPost("customer/view-list")]
         [Authorize]
-        public async Task<IActionResult> ViewListCustomer([FromBody] ViewListCustomer rq)
+        public async Task<IActionResult> ViewListCustomer([FromQuery] ViewListCustomer rq)
         {
-            _logger.LogInformation("Controller ViewListCustomer ");
+            _logger.LogInformation("Controller View List Customer ");
             var response = await _mediator.Send(rq);
             return Ok(response);
 
         }
 
         #region Product
-        [HttpPost("product/Create")]
+        [HttpPost("product/create")]
         [Authorize]
         public async Task<IActionResult> CreateProduct([FromBody] CreateProductCommand rq)
         {
@@ -147,7 +148,7 @@ namespace WebApi.Controllers
         [Authorize]
         public async Task<IActionResult> UpdateProduct([FromBody] UpdateProductCommand rq)
         {
-            _logger.LogInformation("Controller  UpdateProduct");
+            _logger.LogInformation("Controller UpdateProduct");
             var response = await _mediator.Send(rq);
             return Ok(response);
 
@@ -156,16 +157,16 @@ namespace WebApi.Controllers
         [Authorize]
         public async Task<IActionResult> deleteProduct([FromBody] DeleteProductCommand rq)
         {
-            _logger.LogInformation("Controller  deleteProduct");
+            _logger.LogInformation("Controller deleteProduct");
             var response = await _mediator.Send(rq);
             return Ok(response);
 
         }
-        [HttpGet("product/ViewDetail{id}")]
+        [HttpGet("product/view-detail{id}")]
         [Authorize]
         public async Task<IActionResult> ViewDetailProduct([FromQuery] ViewDetailProductQuery rq)
         {
-            _logger.LogInformation("Controller  ViewDetailProduct");
+            _logger.LogInformation("Controller ViewDetailProduct");
             var response = await _mediator.Send(rq);
             return Ok(response);
 

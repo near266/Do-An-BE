@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace WebApi.Domain.Entites
 {
-    public class recordSheet : BaseEntity<Guid>
+    public class RecordSheet : BaseEntity<Guid>
     {
-        public string name {  get; set; }
-        public int status {  get; set; }
-        public int priority {  get; set; }
+        public string? Name { get; set; }
+        public int Status { get; set; }
+        public int Priority { get; set; }
 
     }
 }

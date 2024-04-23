@@ -14,7 +14,7 @@ namespace WebApi.Application.Queries.Customer
 {
     public class ViewDetailCustomer : IRequest<CustomerDTO>
     {
-        public Guid? id { get; set; }
+        public string? Id { get; set; }
     }
     public class ViewDetailCustomerHandler : IRequestHandler<ViewDetailCustomer, CustomerDTO>
     {
@@ -31,7 +31,7 @@ namespace WebApi.Application.Queries.Customer
         public async Task<CustomerDTO> Handle(ViewDetailCustomer request, CancellationToken cancellationToken)
         {
 
-            var cus = await _unitOfWork.CustomerRepository.FirstOrDefaultAsync(x => x.id == request.id);
+            var cus = await _unitOfWork.CustomerRepository.FirstOrDefaultAsync(x => x.Id.ToString() == request.Id);
             var result = _mapper.Map<CustomerDTO>(cus);
             return result;
         }

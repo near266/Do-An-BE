@@ -31,7 +31,7 @@ namespace WebApi.Application.Queries.TeleSale
         public async Task<TeleSaleDTO> Handle(ViewDetailTeleSaleQuery request, CancellationToken cancellationToken)
         {
 
-            var rq = await _unitOfWork.teleSalesRepository.FirstOrDefaultAsync(x => x.id == request.id);
+            var rq = await _unitOfWork.TeleSalesRepository.FirstOrDefaultAsync(x => x.Id == request.id);
             var result = _mapper.Map<TeleSaleDTO>(rq);
             return result;
         }

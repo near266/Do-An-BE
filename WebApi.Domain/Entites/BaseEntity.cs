@@ -12,6 +12,6 @@ namespace WebApi.Domain.Entites
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public TKey id { get; set; }
+        public TKey Id { get; set; }
     }
 }

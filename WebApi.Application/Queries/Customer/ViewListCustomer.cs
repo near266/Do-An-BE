@@ -15,27 +15,35 @@ namespace WebApi.Application.Queries.Customer
 {
     public class ViewListCustomer : IRequest<Pagination<CustomerDTO>>
     {
-        public int page { get; set; }
-        public int pageSize { get; set; }
+        public int Page { get; set; }
+        public int PageSize { get; set; }
+        public string? Id { get; set; }
+        public string? Name { get; set; }
+        public string? PhoneNumber { get; set; }
+        public int? Type { get; set; }
+        public DateTime? FromDate { get; set; }
+        public DateTime? ToDate { get; set; }
+        public string? TeleSalesId { get; set; }
     }
     public class ViewListCustomerHandler : IRequestHandler<ViewListCustomer, Pagination<CustomerDTO>>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private readonly ILogger<ViewListCustomerHandler> _logger;
+        private readonly ICustomerRepository _repo;
 
-        public ViewListCustomerHandler(IUnitOfWork unitOfWork, IMapper mapper, ILogger<ViewListCustomerHandler> logger)
+        public ViewListCustomerHandler(IUnitOfWork unitOfWork, IMapper mapper, ILogger<ViewListCustomerHandler> logger, ICustomerRepository repo)
         {
             _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            _repo = repo;
         }
         public async Task<Pagination<CustomerDTO>> Handle(ViewListCustomer request, CancellationToken cancellationToken)
         {
             _logger.LogInformation("View List Customer");
-            var cus = await _unitOfWork.CustomerRepository.ToPagination(request.page,request.pageSize);
-            var map = _mapper.Map<Pagination<CustomerDTO>>(cus);
-            return map;
+            var customer = await _repo.GetCustomerList(request.Page, request.PageSize, request.Id, request.Name, request.PhoneNumber, request.Type, request.FromDate, request.ToDate, request.TeleSalesId);
+            return customer;
         }
     }
 }

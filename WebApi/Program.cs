@@ -9,6 +9,8 @@ using WebApi.Infrastructure.Persistence;
 using WebApi.Infrastructure.Extensions;
 using WebApi.Application.Extensions;
 using WebApi.Domain.Abstractions;
+using WebApi.Modules.Email.Interface;
+using WebApi.Modules.Email.Services;
 
 
 
@@ -23,7 +25,8 @@ builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddDatabaseModule<UserDbContext>(builder.Configuration);
 builder.Services.AddDatabaseModule<CustomerSupportDatabaseContext>(builder.Configuration);
 builder.Services.AddScoped<ICustomerSupportDbContext, CustomerSupportDatabaseContext>();
-builder.Services.AddMediatR(c=>c.RegisterServicesFromAssemblyContaining<Program>());
+builder.Services.AddScoped<IEmailServices, EmailServices>();
+builder.Services.AddMediatR(c => c.RegisterServicesFromAssemblyContaining<Program>());
 builder.Services.AddMediatRModule(builder.Configuration);
 builder.Services.AddIdentityJwt(builder.Configuration);
 builder.Services.AddMailModule(builder.Configuration);

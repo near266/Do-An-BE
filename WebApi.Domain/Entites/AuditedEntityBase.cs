@@ -10,10 +10,10 @@ namespace WebApi.Domain.Entites
     public class AuditedEntityBase
     {
         [MaxLength(100)]
-        public string? created_by { get; set; }
-        public DateTime? created_date { get; set; }
+        public string? Created_by { get; set; }
+        public DateTime? Created_date { get; set; }
         [MaxLength(100)]
-        public string? last_modified_by { get; set; }
-        public DateTime? last_modified_date { get; set; }
+        public string? Last_modified_by { get; set; }
+        public DateTime? Last_modified_date { get; set; }
     }
 }

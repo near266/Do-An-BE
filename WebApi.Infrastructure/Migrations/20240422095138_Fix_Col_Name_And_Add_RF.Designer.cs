@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WebApi.Infrastructure.Persistence;
@@ -12,9 +13,11 @@ using WebApi.Infrastructure.Persistence;
 namespace WebApi.Infrastructure.Migrations
 {
     [DbContext(typeof(CustomerSupportDatabaseContext))]
-    partial class CustomerSupportDatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20240422095138_Fix_Col_Name_And_Add_RF")]
+    partial class Fix_Col_Name_And_Add_RF
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -288,9 +291,6 @@ namespace WebApi.Infrastructure.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Token")
-                        .HasColumnType("text");
-
-                    b.Property<string>("UserId")
                         .HasColumnType("text");
 
                     b.HasKey("Id");
