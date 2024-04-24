@@ -8,7 +8,7 @@ pipeline {
 			gitlabCredential = 'gitlab_jenkin'
 
             // registry info
-			dockerregistry = 'https://nexus.eztek.net'
+			dockerregistry = 'nexus.eztek.net'
 			registryCredential = 'nexus_jenkin'
 
             //image info
@@ -32,13 +32,13 @@ pipeline {
 			}
 			stage('Build docker')
 			{
-			    agent any
+				agent any
 			  steps
 			  {
-				script {
-                        sh "pwd"
-						dockerImage = docker.build dockerimagename
-					}
+				dir('/var/lib/jenkins/workspace/Customer_SP/BE') {
+					 sh"pwd"
+     				 sh "docker build -t ${dockerimagename} -f /var/lib/jenkins/workspace/Customer_SP/BE/WebApi/Dockerfile . "
+    			}
 			  }
 			}
 			stage('Pushing Image')
@@ -46,13 +46,9 @@ pipeline {
       		  steps
 			  {
         		script {
-				//login registry
-           		 docker.withRegistry( dockerregistry , registryCredential ) {
-              	 //dockerImage.push(version)
-				 dockerImage.push()
-				 //sh "docker rmi ${dockerimage_tag}:${version} -f"
-				 sh "docker rmi ${dockerimagename}:latest -f"
-           		 }
+				 sh "docker login ${dockerregistry}"
+				 sh "docker push ${dockerimagename}"
+				 sh "docker rmi ${dockerimagename}:latest"
           		}
         	  }
     	    }
@@ -69,3 +65,4 @@ pipeline {
         	  }
 		}
 	}
+
