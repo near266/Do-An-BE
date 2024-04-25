@@ -17,7 +17,7 @@ namespace WebApi.Application.Queries.Customer
     {
         public int Page { get; set; }
         public int PageSize { get; set; }
-        public string? Id { get; set; }
+        public string? Code { get; set; }
         public string? Name { get; set; }
         public string? PhoneNumber { get; set; }
         public int? Type { get; set; }
@@ -42,7 +42,7 @@ namespace WebApi.Application.Queries.Customer
         public async Task<Pagination<CustomerDTO>> Handle(ViewListCustomer request, CancellationToken cancellationToken)
         {
             _logger.LogInformation("View List Customer");
-            var customer = await _repo.GetCustomerList(request.Page, request.PageSize, request.Id, request.Name, request.PhoneNumber, request.Type, request.FromDate, request.ToDate, request.TeleSalesId);
+            var customer = await _repo.GetCustomerList(request.Page, request.PageSize, request.Code, request.Name, request.PhoneNumber, request.Type, request.FromDate, request.ToDate, request.TeleSalesId);
             return customer;
         }
     }

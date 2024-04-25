@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace WebApi.Domain.Entites
+namespace WebApi.Application.Models.Dtos
 {
-    public class RecordSheet : BaseEntity<Guid>
+    public class RecordSheetDTO
     {
+        public Guid? Id { get; set; } = new Guid();
         public string? Name { get; set; }
         public int Status { get; set; }
         public int Priority { get; set; }
