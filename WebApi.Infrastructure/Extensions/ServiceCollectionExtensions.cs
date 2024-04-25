@@ -23,7 +23,8 @@ namespace WebApi.Infrastructure.Extensions
             //// Đăng kí repository
             services.AddScoped(typeof(ICustomerRepository), typeof(CustomerRepositoty));
             services.AddScoped(typeof(IProductRepository), typeof(ProductRepository));
-
+            services.AddScoped(typeof(ISalesRepository), typeof(SaleRepository));
+            services.AddScoped(typeof(IRecordSheetRepository), typeof(RecordSheetRepository));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 

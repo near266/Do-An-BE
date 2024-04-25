@@ -25,6 +25,9 @@ namespace WebApi.Application.AutoMapper
             CreateMap<TeleSales, TeleSaleDTO>().ReverseMap().ForAllMembers(x => x.Condition((source, target, sourceValue) => sourceValue != null));
             CreateMap<TeleSales, TeleSales>().ReverseMap().ForAllMembers(x => x.Condition((source, target, sourceValue) => sourceValue != null));
             CreateMap<Pagination<TeleSales>, Pagination<TeleSaleDTO>>().ReverseMap().ForAllMembers(x => x.Condition((source, target, sourceValue) => sourceValue != null));
+
+            CreateMap<Pagination<RecordSheet>, Pagination<RecordSheetDTO>>().ReverseMap().ForAllMembers(x => x.Condition((source, target, sourceValue) => sourceValue != null));
+            CreateMap<RecordSheet, RecordSheetDTO>().ReverseMap().ForAllMembers(x => x.Condition((source, target, sourceValue) => sourceValue != null));
         }
 
     }

@@ -126,7 +126,7 @@ namespace WebApi.Controllers
         }
         [HttpPost("customer/view-list")]
         [Authorize]
-        public async Task<IActionResult> ViewListCustomer([FromQuery] ViewListCustomer rq)
+        public async Task<IActionResult> ViewListCustomer([FromBody] ViewListCustomer rq)
         {
             _logger.LogInformation("Controller View List Customer ");
             var response = await _mediator.Send(rq);
