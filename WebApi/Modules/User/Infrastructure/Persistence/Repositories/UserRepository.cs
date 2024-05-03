@@ -88,15 +88,15 @@ namespace WebApi.Modules.User.Infrastructure.Persistence.Repositories
 
         public async Task<Response<AuthenticationResponse>> LoginAccount(LoginDTO loginDTO)
         {
-            var user = await userManager.FindByNameAsync(loginDTO.UserName);
+            var user = await userManager.FindByEmailAsync(loginDTO.Email);
             if (user == null)
             {
-                throw new ApiException($"No Accounts Registered with {loginDTO.UserName}.");
+                throw new ApiException($"No Accounts Registered with {loginDTO.Email}.");
             }
-            var result = await signInManager.PasswordSignInAsync(user.UserName, loginDTO.Password, false, lockoutOnFailure: false);
+            var result = await signInManager.PasswordSignInAsync(user.UserName , loginDTO.Password, false, lockoutOnFailure: false);
             if (!result.Succeeded)
             {
-                throw new ApiException($"Invalid Credentials for '{loginDTO.UserName}'.");
+                throw new ApiException($"Invalid Credentials for '{loginDTO.Email  }'.");
             }
 
             JwtSecurityToken jwtSecurityToken = await GenerateJWTToken(user);
@@ -267,6 +267,65 @@ namespace WebApi.Modules.User.Infrastructure.Persistence.Repositories
             {
                 throw new ApiException($"Error occured while reseting the password.");
             }
+        }
+
+        public async Task<GeneralResponse> CreateAccountAdmin(UserDtos userDtos)
+        {
+            if (userDtos is null) return new GeneralResponse(false, "Model is empty");
+            var newUser = new UserIdentity()
+            {
+                Name = userDtos.Name,
+                Email = userDtos.Email,
+                PasswordHash = userDtos.Password,
+                UserName = userDtos.UserName,
+
+            };
+            var user = await userManager.FindByEmailAsync(newUser.Email);
+            if (user is not null) return new GeneralResponse(false, "User registered already");
+
+            var createUser = await userManager.CreateAsync(newUser!, userDtos.Password);
+            if (!createUser.Succeeded) return new GeneralResponse(false, "Error occured.. please try again");
+
+            //Assign Default Role : Admin to first registrar; rest is user
+        
+         
+           
+                var checkUser = await roleManager.FindByNameAsync("Admin");
+                if (checkUser is null)
+                    await roleManager.CreateAsync(new IdentityRole() { Name = "Admin" });
+
+                await userManager.AddToRoleAsync(newUser, "Admin");
+                return new GeneralResponse(true, "Account Created");
+           
+        }
+
+        public async Task<GeneralResponse> CreateAccountEnterprise(UserDtos userDTO)
+        {
+            if (userDTO is null) return new GeneralResponse(false, "Model is empty");
+            var newUser = new UserIdentity()
+            {
+                Name = userDTO.Name,
+                Email = userDTO.Email,
+                PasswordHash = userDTO.Password,
+                UserName = userDTO.UserName,
+
+            };
+            var user = await userManager.FindByEmailAsync(newUser.Email);
+            if (user is not null) return new GeneralResponse(false, "User registered already");
+
+            var createUser = await userManager.CreateAsync(newUser!, userDTO.Password);
+            if (!createUser.Succeeded) return new GeneralResponse(false, "Error occured.. please try again");
+
+            //Assign Default Role : Admin to first registrar; rest is user
+
+
+
+            var checkUser = await roleManager.FindByNameAsync("Enterprise");
+            if (checkUser is null)
+                await roleManager.CreateAsync(new IdentityRole() { Name = "Enterprise" });
+
+            await userManager.AddToRoleAsync(newUser, "Enterprise");
+            return new GeneralResponse(true, "Account Created");
         }
     }
 }

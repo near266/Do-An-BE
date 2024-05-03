@@ -12,6 +12,8 @@ namespace WebApi.Application.Contracts.Persistence
     public interface IUserRepository
     {
         Task<GeneralResponse> CreateAccount(UserDtos userDTO);
+        Task<GeneralResponse> CreateAccountAdmin(UserDtos userDtos);
+        Task<GeneralResponse> CreateAccountEnterprise(UserDtos userDTO);
         Task<Response<AuthenticationResponse>> LoginAccount(LoginDTO loginDTO);
         Task<Response<AuthenticationResponse>> GetUserByUserName(string? UserName);
         Task ForgotPassword(ForgotPasswordRequest model, string origin);

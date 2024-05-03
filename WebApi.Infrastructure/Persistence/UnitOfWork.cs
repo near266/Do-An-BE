@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Storage;
 using WebApi.Application.Contracts.Persistence;
 using WebApi.Application.Exceptions;
 using WebApi.Domain.Enums;
-using WebApi.Infrastructure.Persistence.Repositories;
+
 
 
 namespace WebApi.Infrastructure.Persistence
@@ -19,18 +19,14 @@ namespace WebApi.Infrastructure.Persistence
 
         // repositories
 
-        public ICustomerRepository CustomerRepository { get; }
-        public IProductRepository ProductRepository { get; }
-        public ISalesRepository TeleSalesRepository { get; }
+     
 
         //
         public UnitOfWork(CustomerSupportDatabaseContext dbContext, IMapper mapper)
         {
             _context = dbContext;
             _mapper = mapper;
-            CustomerRepository = new CustomerRepositoty(_context, _mapper);
-            ProductRepository = new ProductRepository(_context);
-            TeleSalesRepository = new SaleRepository(_context);
+         
         }
 
         // save changes

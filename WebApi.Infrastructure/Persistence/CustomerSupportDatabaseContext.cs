@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using WebApi.Domain.Abstractions;
 using WebApi.Domain.Entites;
+using WebApi.Domain.Entites.Assesment;
+using WebApi.Domain.Entites.Job;
 
 namespace WebApi.Infrastructure.Persistence
 {
@@ -22,17 +24,15 @@ namespace WebApi.Infrastructure.Persistence
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
 
-
-        public DbSet<Customers> Customers { get; set; }
-        public DbSet<Customer_TeleSales> Customers_TeleSales { get; set; }
-        public DbSet<Product> Products { get; set; }
-        public DbSet<TeleSales> TeleSales { get; set; }
-
-        public DbSet<Category> Categories { get; set; }
-        public DbSet<Product_Category> Products_Categories { get; set; }
-        public DbSet<RecordSheet> RecordSheets { get; set; }
-        public DbSet<Record_Relation> Record_Relations { get; set; }
         public DbSet<RefreshToken> RefreshTokens { get; set; }
+        public DbSet<Assessment> assessments { get; set; }
+        public DbSet<assessment_questions> assessment_Questions { get; set; }
+        public DbSet<assessment_test_results> Assessment_Test_Results { get; set; }
+        public DbSet<Event> events { get; set; }
+        public DbSet<job_posts> job_Posts { get; set; }
+        public DbSet<job_post_candidates> job_post_candidates { get; set; }
+
+
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {

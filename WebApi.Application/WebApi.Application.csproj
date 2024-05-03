@@ -19,4 +19,10 @@
     <ProjectReference Include="..\WebApi.Share\WebApi.Share.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Command\" />
+    <Folder Include="Models\Dtos\" />
+    <Folder Include="Queries\" />
+  </ItemGroup>
+
 </Project>

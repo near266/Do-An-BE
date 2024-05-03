@@ -23,6 +23,18 @@ namespace WebApi.Controllers
             var response = await _userRepository.CreateAccount(userDTO);
             return Ok(response);
         }
+        [HttpPost("registerAdmin")]
+        public async Task<IActionResult> RegisterAdmin(UserDtos userDTO)
+        {
+            var response = await _userRepository.CreateAccountAdmin(userDTO);
+            return Ok(response);
+        }
+        [HttpPost("registerEnterprise")]
+        public async Task<IActionResult> registerEnterprise(UserDtos userDTO)
+        {
+            var response = await _userRepository.CreateAccountEnterprise(userDTO);
+            return Ok(response);
+        }
         [HttpPost("authenticate")]
         public async Task<IActionResult> Authenticate(LoginDTO loginDTO)
         {

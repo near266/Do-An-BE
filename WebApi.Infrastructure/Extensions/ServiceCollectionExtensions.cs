@@ -3,10 +3,10 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using WebApi.Application.AutoMapper;
-using WebApi.Application.Command;
+
 using WebApi.Application.Contracts.Persistence;
 using WebApi.Infrastructure.Persistence;
-using WebApi.Infrastructure.Persistence.Repositories;
+
 
 namespace WebApi.Infrastructure.Extensions
 {
@@ -21,10 +21,7 @@ namespace WebApi.Infrastructure.Extensions
 
 
             //// Đăng kí repository
-            services.AddScoped(typeof(ICustomerRepository), typeof(CustomerRepositoty));
-            services.AddScoped(typeof(IProductRepository), typeof(ProductRepository));
-            services.AddScoped(typeof(ISalesRepository), typeof(SaleRepository));
-            services.AddScoped(typeof(IRecordSheetRepository), typeof(RecordSheetRepository));
+          
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 
