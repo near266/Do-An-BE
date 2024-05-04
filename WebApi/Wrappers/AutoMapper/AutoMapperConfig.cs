@@ -1,12 +1,18 @@
 ﻿using AutoMapper;
+using WebApi.Application.Models.Dtos.Userinfo;
+using WebApi.Modules.Dtos;
 using WebApi.Wrappers.DTOS;
+using WebApi.Wrappers.DTOS.UserInfoDtos;
 
 namespace WebApi.Wrappers.AutoMapper
 {
     public class AutoMapperConfig : Profile
     {
         public AutoMapperConfig()
-        { 
+        {
+            CreateMap<RegisterUserInfo, UserInfoDTO>().ReverseMap().ForAllMembers(x => x.Condition((source, target, sourceValue) => sourceValue != null));
+            CreateMap<RegisterUserInfo, UserDtos>().ReverseMap().ForAllMembers(x => x.Condition((source, target, sourceValue) => sourceValue != null));
+
 
         }
     }

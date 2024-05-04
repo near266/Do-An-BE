@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WebApi.Infrastructure.Persistence;
@@ -11,9 +12,11 @@ using WebApi.Infrastructure.Persistence;
 namespace WebApi.Infrastructure.Migrations
 {
     [DbContext(typeof(CustomerSupportDatabaseContext))]
-    partial class CustomerSupportDatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20240503163339_updateUser2")]
+    partial class updateUser2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -22,111 +25,14 @@ namespace WebApi.Infrastructure.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("WebApi.Domain.Entites.Account.enterprises", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("text");
-
-                    b.Property<string>("abbreviation_name")
-                        .HasColumnType("text");
-
-                    b.Property<string>("account_id")
-                        .HasColumnType("text");
-
-                    b.Property<string>("address")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("approve_status_id")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("authorization_letter_key")
-                        .HasColumnType("text");
-
-                    b.Property<string>("business_license_key")
-                        .HasColumnType("text");
-
-                    b.Property<int?>("career_field_id")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("city_id")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("created_by")
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
-
-                    b.Property<DateTime?>("created_date")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<int>("district_id")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("introduce")
-                        .HasColumnType("text");
-
-                    b.Property<int?>("job_post_count")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("map_url")
-                        .HasColumnType("text");
-
-                    b.Property<string>("name")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("phone")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime?>("phone_verified_at")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTime?>("pricing_plan_end_at")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("pricing_plan_id")
-                        .HasColumnType("text");
-
-                    b.Property<DateTime?>("pricing_plan_start_at")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("reason_of_rejection")
-                        .HasColumnType("text");
-
-                    b.Property<int>("receive_news")
-                        .HasColumnType("integer");
-
-                    b.Property<int?>("scale_id")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime?>("update_at")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("update_by")
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
-
-                    b.Property<int?>("ward_id")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("website_url")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("enterprises");
-                });
-
             modelBuilder.Entity("WebApi.Domain.Entites.Account.userInfo", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("text");
 
-                    b.Property<string>("Account_id")
-                        .HasColumnType("text");
+                    b.Property<Guid?>("Account_id")
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Address")
                         .HasColumnType("text");

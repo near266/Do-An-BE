@@ -58,7 +58,17 @@ namespace CleanArchitecture.Application.Repositories
 
             return result;
         }
+        public async Task<List<T>> ToList()
+        {
+          
+            var items = await _dbSet
+                                    .AsNoTracking()
+                                    .ToListAsync();
 
+          
+
+            return items;
+        }
         public async Task<Pagination<T>> GetAsync(
             Expression<Func<T, bool>> filter,
             int pageIndex = 1,

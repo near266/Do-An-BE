@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WebApi.Domain.Abstractions;
 using WebApi.Domain.Entites;
+using WebApi.Domain.Entites.Account;
 using WebApi.Domain.Entites.Assesment;
 using WebApi.Domain.Entites.Job;
 
@@ -30,6 +31,10 @@ namespace WebApi.Infrastructure.Persistence
         public DbSet<assessment_test_results> Assessment_Test_Results { get; set; }
         public DbSet<Event> events { get; set; }
         public DbSet<job_posts> job_Posts { get; set; }
+        public DbSet<userInfo> userInfos { get; set; }
+        public DbSet<enterprises> enterprises { get; set; }
+
+
         public DbSet<job_post_candidates> job_post_candidates { get; set; }
 
 

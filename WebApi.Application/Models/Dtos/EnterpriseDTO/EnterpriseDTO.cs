@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WebApi.Domain.Entites.Account
+namespace WebApi.Application.Models.Dtos.EnterpriseDTO
 {
-    public class enterprises:BaseEntity
+    public class EnterpriseDTO
     {
+        public string? Id { get; set; }
         public string name { get; set; }
         public string? account_id { get; set; }
         public string? abbreviation_name { get; set; }
@@ -28,9 +30,14 @@ namespace WebApi.Domain.Entites.Account
         public int approve_status_id { get; set; }
         public string? reason_of_rejection { get; set; }
         public int receive_news { get; set; }
-  
+
         public string? pricing_plan_id { get; set; }
         public DateTime? pricing_plan_start_at { get; set; }
         public DateTime? pricing_plan_end_at { get; set; }
+        public string? created_by { get; set; }
+        public DateTime? created_date { get; set; }
+        public string? update_by { get; set; }
+        public DateTime? update_at { get; set; }
     }
 }
+

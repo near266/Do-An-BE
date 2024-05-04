@@ -6,6 +6,7 @@ using WebApi.Application.AutoMapper;
 
 using WebApi.Application.Contracts.Persistence;
 using WebApi.Infrastructure.Persistence;
+using WebApi.Infrastructure.Persistence.Repositories;
 
 
 namespace WebApi.Infrastructure.Extensions
@@ -23,7 +24,7 @@ namespace WebApi.Infrastructure.Extensions
             //// Đăng kí repository
           
             services.AddScoped<IUnitOfWork, UnitOfWork>();
-
+            services.AddScoped(typeof(IUserInfoRepository), typeof(UserInfoRepository));
 
             //Đăng kí service
 

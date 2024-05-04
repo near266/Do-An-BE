@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore.Storage;
 using WebApi.Application.Contracts.Persistence;
 using WebApi.Application.Exceptions;
 using WebApi.Domain.Enums;
+using WebApi.Infrastructure.Persistence.Repositories;
 
 
 
@@ -17,15 +18,26 @@ namespace WebApi.Infrastructure.Persistence
         //
         private readonly CustomerSupportDatabaseContext _context;
 
+        public IUserInfoRepository userInfoRepository { get; }
+
+        public IEnterpriseRepository enterpriseRepository {get;}
+
+        public IJobPostRepository jobPostRepository {get;}
+
+        public IAssessmentRepository assessmentRepository {get;}
+
         // repositories
 
-     
+
 
         //
         public UnitOfWork(CustomerSupportDatabaseContext dbContext, IMapper mapper)
         {
             _context = dbContext;
             _mapper = mapper;
+            userInfoRepository = new UserInfoRepository(_context);
+            enterpriseRepository = new EnterpriseRepository(_context);
+            assessmentRepository = new AssessmentRepository(_context);
          
         }
 

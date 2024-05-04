@@ -11,6 +11,8 @@ namespace WebApi.Domain.Entites.Account
     {
        public string? Address {  get; set; }
         public string? avatar { get; set; }
-       public Guid? Account_id { get; set; }
+        public string? birthday {  get; set; }
+       public string? Account_id { get; set; }
+
     }
 }
