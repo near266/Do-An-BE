@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WebApi.Infrastructure.Persistence;
@@ -11,9 +12,11 @@ using WebApi.Infrastructure.Persistence;
 namespace WebApi.Infrastructure.Migrations
 {
     [DbContext(typeof(CustomerSupportDatabaseContext))]
-    partial class CustomerSupportDatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20240505152705_update")]
+    partial class update
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,8 +53,8 @@ namespace WebApi.Infrastructure.Migrations
                     b.Property<int?>("career_field_id")
                         .HasColumnType("integer");
 
-                    b.Property<string>("city_id")
-                        .HasColumnType("text");
+                    b.Property<int>("city_id")
+                        .HasColumnType("integer");
 
                     b.Property<string>("created_by")
                         .HasMaxLength(100)
@@ -60,8 +63,8 @@ namespace WebApi.Infrastructure.Migrations
                     b.Property<DateTime?>("created_date")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("district_id")
-                        .HasColumnType("text");
+                    b.Property<int>("district_id")
+                        .HasColumnType("integer");
 
                     b.Property<string>("introduce")
                         .HasColumnType("text");
@@ -108,8 +111,8 @@ namespace WebApi.Infrastructure.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
-                    b.Property<string>("ward_id")
-                        .HasColumnType("text");
+                    b.Property<int?>("ward_id")
+                        .HasColumnType("integer");
 
                     b.Property<string>("website_url")
                         .HasColumnType("text");

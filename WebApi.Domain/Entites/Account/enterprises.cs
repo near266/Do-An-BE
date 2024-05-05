@@ -17,9 +17,9 @@ namespace WebApi.Domain.Entites.Account
         public string? website_url { get; set; }
         public string? introduce { get; set; }
         public int? scale_id { get; set; }
-        public int city_id { get; set; }
-        public int district_id { get; set; }
-        public int? ward_id { get; set; }
+        public string? city_id { get; set; }
+        public string? district_id { get; set; }
+        public string? ward_id { get; set; }
         public string address { get; set; }
         public string? map_url { get; set; }
         public int? job_post_count { get; set; }

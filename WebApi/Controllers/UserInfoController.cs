@@ -5,8 +5,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Security.Claims;
+using WebApi.Application.Command.EnterpriseC;
 using WebApi.Application.Command.UserInfoC;
 using WebApi.Application.Contracts.Persistence;
+using WebApi.Application.Models.Dtos.EnterpriseDTO;
 using WebApi.Application.Models.Dtos.Userinfo;
 using WebApi.Application.Queries.UserInfoQ;
 using WebApi.Modules.Dtos;
@@ -41,6 +43,36 @@ namespace WebApi.Controllers
         {
             return User.FindFirst(ClaimTypes.Role)?.Value;
         }
+
+        #region Enterpriese
+        [HttpPost("Enterprise/Create")]
+
+        public async Task<IActionResult> EnterpriseCreate([FromBody] RegisterEnterprise rq)
+        {
+            _logger.LogInformation($"Excute request to  EnterpriseCreate : {rq}");
+
+            try
+            {
+                var mapUser = _mapper.Map<UserDtos>(rq);
+                await _userRepository.CreateAccountEnterprise(mapUser);
+                var user = await _userRepository.GetUserByUserName(rq.UserName);
+                var rqCreate = new CreateEnterpriseCommand();
+
+                var mapUserInfo = _mapper.Map<EnterpriseDTO>(rq);
+
+                mapUserInfo.account_id = user.Data.Id;
+
+                rqCreate.EnterpriseDTO = mapUserInfo;
+                var res = await _mediator.Send(rqCreate);
+                return Ok(res);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Controller had problem when running", ex);
+            }
+
+        }
+        #endregion
         [HttpPost("UserInfo/Create")]
        
         public async Task<IActionResult> UserInfoCreate([FromBody] RegisterUserInfo rq)
