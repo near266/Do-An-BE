@@ -35,13 +35,15 @@ namespace WebApi.Infrastructure.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("address")
-                        .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("approve_status_id")
+                    b.Property<int?>("approve_status_id")
                         .HasColumnType("integer");
 
                     b.Property<string>("authorization_letter_key")
+                        .HasColumnType("text");
+
+                    b.Property<string>("avatar")
                         .HasColumnType("text");
 
                     b.Property<string>("business_license_key")
@@ -63,6 +65,12 @@ namespace WebApi.Infrastructure.Migrations
                     b.Property<string>("district_id")
                         .HasColumnType("text");
 
+                    b.Property<string>("enterprise_name")
+                        .HasColumnType("text");
+
+                    b.Property<int?>("gender_id")
+                        .HasColumnType("integer");
+
                     b.Property<string>("introduce")
                         .HasColumnType("text");
 
@@ -73,7 +81,6 @@ namespace WebApi.Infrastructure.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("name")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("phone")
@@ -95,8 +102,8 @@ namespace WebApi.Infrastructure.Migrations
                     b.Property<string>("reason_of_rejection")
                         .HasColumnType("text");
 
-                    b.Property<int>("receive_news")
-                        .HasColumnType("integer");
+                    b.Property<bool?>("receive_news")
+                        .HasColumnType("boolean");
 
                     b.Property<int?>("scale_id")
                         .HasColumnType("integer");
@@ -128,13 +135,16 @@ namespace WebApi.Infrastructure.Migrations
                     b.Property<string>("Account_id")
                         .HasColumnType("text");
 
-                    b.Property<string>("Address")
+                    b.Property<string>("address")
                         .HasColumnType("text");
 
                     b.Property<string>("avatar")
                         .HasColumnType("text");
 
                     b.Property<string>("birthday")
+                        .HasColumnType("text");
+
+                    b.Property<string>("city_id")
                         .HasColumnType("text");
 
                     b.Property<string>("created_by")
@@ -144,12 +154,27 @@ namespace WebApi.Infrastructure.Migrations
                     b.Property<DateTime?>("created_date")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<string>("district_id")
+                        .HasColumnType("text");
+
+                    b.Property<int?>("gender_id")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("information")
+                        .HasColumnType("text");
+
+                    b.Property<string>("phone")
+                        .HasColumnType("text");
+
                     b.Property<DateTime?>("update_at")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("update_by")
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
+
+                    b.Property<string>("ward_id")
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -338,6 +363,87 @@ namespace WebApi.Infrastructure.Migrations
                     b.ToTable("events");
                 });
 
+            modelBuilder.Entity("WebApi.Domain.Entites.Job.career", b =>
+                {
+                    b.Property<string>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("text");
+
+                    b.Property<int?>("active")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("additional_competency")
+                        .HasColumnType("text");
+
+                    b.Property<string>("area_of_expertise")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("created_at")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("created_by")
+                        .HasColumnType("text");
+
+                    b.Property<string>("description")
+                        .HasColumnType("text");
+
+                    b.Property<int?>("field_id")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("image_url")
+                        .HasColumnType("text");
+
+                    b.Property<string>("learning_path")
+                        .HasColumnType("text");
+
+                    b.Property<string>("main_tasks")
+                        .HasColumnType("text");
+
+                    b.Property<string>("minimum_education")
+                        .HasColumnType("text");
+
+                    b.Property<string>("name")
+                        .HasColumnType("text");
+
+                    b.Property<string>("required_competency")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("updated_at")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("updated_by")
+                        .HasColumnType("text");
+
+                    b.Property<string>("workplace_example")
+                        .HasColumnType("text");
+
+                    b.HasKey("id");
+
+                    b.ToTable("careers");
+                });
+
+            modelBuilder.Entity("WebApi.Domain.Entites.Job.career_fields", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
+
+                    b.Property<int?>("active")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("avatar")
+                        .HasColumnType("text");
+
+                    b.Property<string>("name")
+                        .HasColumnType("text");
+
+                    b.HasKey("id");
+
+                    b.ToTable("career_Fields");
+                });
+
             modelBuilder.Entity("WebApi.Domain.Entites.Job.job_post_candidates", b =>
                 {
                     b.Property<int?>("id")
@@ -390,11 +496,10 @@ namespace WebApi.Infrastructure.Migrations
                     b.Property<string>("benefit")
                         .HasColumnType("text");
 
-                    b.Property<int>("career_field_id")
+                    b.Property<int?>("career_field_id")
                         .HasColumnType("integer");
 
                     b.Property<string>("career_id")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("city")
@@ -428,8 +533,8 @@ namespace WebApi.Infrastructure.Migrations
                     b.Property<string>("district")
                         .HasColumnType("text");
 
-                    b.Property<int>("enterprise_id")
-                        .HasColumnType("integer");
+                    b.Property<string>("enterprise_id")
+                        .HasColumnType("text");
 
                     b.Property<string>("experience")
                         .HasColumnType("text");
@@ -471,14 +576,12 @@ namespace WebApi.Infrastructure.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("slug")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("status_id")
                         .HasColumnType("text");
 
                     b.Property<string>("title")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<int?>("total_cv")

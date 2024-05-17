@@ -1,4 +1,5 @@
 ﻿using Azure.Core;
+using Firebase.Auth;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -257,8 +258,13 @@ namespace WebApi.Modules.User.Infrastructure.Persistence.Repositories
         public async Task<Response<string>> ResetPassword(ResetPasswordRequest model)
         {
             var account = await userManager.FindByNameAsync(model.UserName);
+         
             if (account == null) throw new ApiException($"No Accounts Registered with {model.UserName}.");
-            var result = await userManager.ResetPasswordAsync(account, model.Token, model.Password);
+            var checkpass = await userManager.CheckPasswordAsync(account,model.OldPass);
+            if (!checkpass) throw new ApiException("Old Password Wrong");
+            var code = await userManager.GeneratePasswordResetTokenAsync(account);
+
+            var result = await userManager.ResetPasswordAsync(account, code, model.Password);
             if (result.Succeeded)
             {
                 return new Response<string>(model.UserName, message: $"Password Resetted.");

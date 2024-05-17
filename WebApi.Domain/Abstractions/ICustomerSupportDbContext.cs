@@ -19,6 +19,9 @@ namespace WebApi.Domain.Abstractions
         public DbSet<assessment_questions> assessment_Questions  { get; set; }
         public DbSet<assessment_test_results> Assessment_Test_Results  { get; set; }
         public DbSet<enterprises> enterprises { get; set; }
+        public DbSet<career_fields> career_Fields { get; set; }
+        public DbSet<career> careers { get; set; }
+
 
         public DbSet<Event> events { get; set; }
         public DbSet<userInfo> userInfos { get; set; }

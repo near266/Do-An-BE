@@ -9,10 +9,17 @@ namespace WebApi.Domain.Entites.Account
 {
     public class userInfo : BaseEntity
     {
-       public string? Address {  get; set; }
+       public string? address {  get; set; }
         public string? avatar { get; set; }
+        public int? gender_id { get; set; }
+
         public string? birthday {  get; set; }
        public string? Account_id { get; set; }
+        public string? phone {  get; set; }
+        public string? city_id { get; set; }
+        public string? district_id { get; set; }
+        public string? ward_id { get; set; }
+        public string? information { get; set; }
 
     }
 }

@@ -32,6 +32,7 @@ namespace WebApi.Application.Queries.UserInfoQ
 
             var cus = await _unitOfWork.userInfoRepository.FirstOrDefaultAsync(x => x.Account_id== request.id);
             var result = _mapper.Map<UserInfoDTO>(cus);
+            
             return result;
         }
     }

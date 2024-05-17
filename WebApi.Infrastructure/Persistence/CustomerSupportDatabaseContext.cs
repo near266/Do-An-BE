@@ -33,11 +33,12 @@ namespace WebApi.Infrastructure.Persistence
         public DbSet<job_posts> job_Posts { get; set; }
         public DbSet<userInfo> userInfos { get; set; }
         public DbSet<enterprises> enterprises { get; set; }
+        public DbSet<career_fields> career_Fields { get; set; }
+
 
 
         public DbSet<job_post_candidates> job_post_candidates { get; set; }
-
-
+        public DbSet<career> careers { get; set; }
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {

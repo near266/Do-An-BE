@@ -20,11 +20,16 @@ namespace WebApi.Infrastructure.Persistence
 
         public IUserInfoRepository userInfoRepository { get; }
 
-        public IEnterpriseRepository enterpriseRepository {get;}
+        public IEnterpriseRepository enterpriseRepository { get; }
 
-        public IJobPostRepository jobPostRepository {get;}
+        public IJobPostRepository jobPostRepository { get; }
 
-        public IAssessmentRepository assessmentRepository {get;}
+        public IAssessmentRepository assessmentRepository { get; }
+
+        public ICareerFieldRepository CareerFieldRepository { get; }
+
+        public ICareeRepository careeRepository  {get ;}
+
 
         // repositories
 
@@ -38,6 +43,9 @@ namespace WebApi.Infrastructure.Persistence
             userInfoRepository = new UserInfoRepository(_context);
             enterpriseRepository = new EnterpriseRepository(_context);
             assessmentRepository = new AssessmentRepository(_context);
+            CareerFieldRepository = new CareerFieldRepository(_context);
+            jobPostRepository =new JobRepository(_context);
+            careeRepository=new CareeRepository(_context);
          
         }
 

@@ -10,6 +10,7 @@ using WebApi.Application.Command.UserInfoC;
 using WebApi.Application.Contracts.Persistence;
 using WebApi.Application.Models.Dtos.EnterpriseDTO;
 using WebApi.Application.Models.Dtos.Userinfo;
+using WebApi.Application.Queries.EnterpriseQ;
 using WebApi.Application.Queries.UserInfoQ;
 using WebApi.Modules.Dtos;
 using WebApi.Wrappers.DTOS.UserInfoDtos;
@@ -45,6 +46,66 @@ namespace WebApi.Controllers
         }
 
         #region Enterpriese
+        [HttpPost("Enterprise/Detail")]
+
+        public async Task<IActionResult> EnterpriseDetail([FromBody]ViewDetailEnterpriseQuery rq)
+        {
+            _logger.LogInformation($"Excute request to  EnterpriseCreate : {rq}");
+
+            try
+            {
+                
+                var res = await _mediator.Send(rq);
+                return Ok(res);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Controller had problem when running", ex);
+            }
+
+        }
+        [HttpPut("Enterprise/Update")]
+
+        public async Task<IActionResult> EnterpriseUpdate([FromBody] UpdateEnterpiseRequest rq)
+        {
+            _logger.LogInformation($"Excute request to  EnterpriseCreate : {rq}");
+
+            try
+            {
+                var rquest = new UpdateEnterpriseCommand();
+                var map = _mapper.Map<EnterpriseDTO>(rq);
+                 rquest.EnterpriseDTO = map;
+
+                var res = await _mediator.Send(rquest);
+                return Ok(res);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Controller had problem when running", ex);
+            }
+
+        }
+        [HttpPut("Enterprise/Update-AccountInfo")]
+
+        public async Task<IActionResult> EnterpriseUpdateAvatar([FromBody] UpdateInfoEnterprise rq)
+        {
+            _logger.LogInformation($"Excute request to  EnterpriseCreate : {rq}");
+
+            try
+            {
+                var rquest = new UpdateEnterpriseCommand();
+                var map = _mapper.Map<EnterpriseDTO>(rq);
+                rquest.EnterpriseDTO = map;
+
+                var res = await _mediator.Send(rquest);
+                return Ok(res);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Controller had problem when running", ex);
+            }
+
+        }
         [HttpPost("Enterprise/Create")]
 
         public async Task<IActionResult> EnterpriseCreate([FromBody] RegisterEnterprise rq)
@@ -55,10 +116,10 @@ namespace WebApi.Controllers
             {
                 var mapUser = _mapper.Map<UserDtos>(rq);
                 await _userRepository.CreateAccountEnterprise(mapUser);
+                var mapUserInfo = _mapper.Map<EnterpriseDTO>(rq);
                 var user = await _userRepository.GetUserByUserName(rq.UserName);
                 var rqCreate = new CreateEnterpriseCommand();
 
-                var mapUserInfo = _mapper.Map<EnterpriseDTO>(rq);
 
                 mapUserInfo.account_id = user.Data.Id;
 
@@ -99,7 +160,7 @@ namespace WebApi.Controllers
             }
 
         }
-        [HttpGet("UserInfo/detail")]
+        [HttpGet("auth/me")]
 
         public async Task<IActionResult> userInfoDetail([FromQuery] ViewDetailUserInfoQuery rq)
         {

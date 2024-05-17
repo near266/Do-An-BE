@@ -7,13 +7,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WebApi.Application.AutoMapper;
+using WebApi.Application.Command.CareerFieldC;
 using WebApi.Application.Command.EnterpriseC;
+using WebApi.Application.Command.JobC;
 using WebApi.Application.Command.UserInfoC;
 using WebApi.Application.Contracts.Persistence;
 using WebApi.Application.Models;
 using WebApi.Application.Models.Dtos.EnterpriseDTO;
 using WebApi.Application.Models.Dtos.Userinfo;
+using WebApi.Application.Queries.CareeFieldsQ;
+using WebApi.Application.Queries.EnterpriseQ;
+using WebApi.Application.Queries.Job_postQ;
 using WebApi.Application.Queries.UserInfoQ;
+using WebApi.Domain.Entites.Job;
 
 
 namespace WebApi.Application.Extensions
@@ -31,6 +37,21 @@ namespace WebApi.Application.Extensions
 
             services.AddTransient<IRequestHandler<CreateEnterpriseCommand, EnterpriseDTO>, CreateEnterpriseCommandHandler>();
             services.AddTransient<IRequestHandler<UpdateEnterpriseCommand, EnterpriseDTO>, UpdateEnterpriseCommandHandler>();
+            services.AddTransient<IRequestHandler<ViewDetailEnterpriseQuery, EnterpriseDTO>, ViewDetailEnterpriseQueryHandler>();
+
+            services.AddTransient<IRequestHandler<ViewAllCareerFieldsQuery, Pagination<career_fields>>, ViewAllCareerFieldsQueryHandler>();
+            services.AddTransient<IRequestHandler<CreateCareerFieldsCommand, career_fields>, CreateCareerFieldsCommandHandler>();
+
+            services.AddTransient<IRequestHandler<CreateJob_postCommand, job_posts>, CreateJob_postCommandHandler>();
+            services.AddTransient<IRequestHandler<UpdateJob_postCommand,job_posts>, UpdateJob_postCommandHandler>();
+            services.AddTransient<IRequestHandler<DeleteJob_postCommand, int>, DeleteJob_postCommandHandler>();
+            services.AddTransient<IRequestHandler<ViewDetailJob_postQuery, job_posts>, ViewDetailJob_postQueryHandler>();
+            services.AddTransient<IRequestHandler<SearchJob_postQuery, Pagination<job_posts>>, SearchJob_postQueryHandler>();
+
+            services.AddTransient<IRequestHandler<SearchCareeByFileldIdQuery, Pagination<career>>, SearchCareeByFileldIdQueryHandler>();
+            services.AddTransient<IRequestHandler<UpdateJobPostCommand,job_posts>, UpdateJobPostCommandHandler>();
+            services.AddTransient<IRequestHandler<ViewDetailFieldsQuery, career_fields>, ViewDetailFieldsQueryHandler>();
+            services.AddTransient<IRequestHandler<ViewDetailCareeQuery, career>, ViewDetailCareeQueryHandler>();
 
             return services;
         }

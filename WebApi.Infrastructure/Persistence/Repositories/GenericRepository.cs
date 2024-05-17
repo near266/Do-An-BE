@@ -71,8 +71,8 @@ namespace CleanArchitecture.Application.Repositories
         }
         public async Task<Pagination<T>> GetAsync(
             Expression<Func<T, bool>> filter,
-            int pageIndex = 1,
-            int pageSize = 10)
+            int pageIndex,
+            int pageSize)
         {
             var itemCount = await _dbSet.CountAsync();
             var items = await _dbSet.Where(filter)

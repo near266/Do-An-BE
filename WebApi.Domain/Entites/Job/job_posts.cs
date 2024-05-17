@@ -8,11 +8,12 @@ namespace WebApi.Domain.Entites.Job
 {
     public class job_posts : BaseEntity
     {
-        public int enterprise_id { get; set; }
-        public int career_field_id { get; set; }
-        public string career_id { get; set; } = "";
-        public string title { get; set; } = "";
-        public string slug { get; set; }
+     
+        public string? enterprise_id { get; set; }
+        public int? career_field_id { get; set; }
+        public string? career_id { get; set; }
+        public string? title { get; set; } 
+        public string? slug { get; set; }
         public string? city { get; set; }
         public string? district { get; set; }
         public string? address { get; set; }
@@ -41,5 +42,6 @@ namespace WebApi.Domain.Entites.Job
         public int? total_cv { get; set; }
  
         public DateTime? deleted_at { get; set; }
+
     }
 }

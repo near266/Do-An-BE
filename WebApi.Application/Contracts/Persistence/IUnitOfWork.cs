@@ -9,6 +9,8 @@ namespace WebApi.Application.Contracts.Persistence
         IEnterpriseRepository enterpriseRepository { get; }
         IJobPostRepository jobPostRepository { get; }
         IAssessmentRepository assessmentRepository { get; }
+        ICareerFieldRepository CareerFieldRepository { get; }
+        ICareeRepository careeRepository { get; }
 
         /// <summary>
         /// Saves changes to the database. This is called when the user changes the data or saves a new version of the data.

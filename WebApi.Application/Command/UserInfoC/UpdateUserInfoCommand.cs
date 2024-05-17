@@ -35,7 +35,7 @@ namespace WebApi.Application.Command.UserInfoC
             var cus = await _unitOfWork.userInfoRepository.FirstOrDefaultAsync(x => x.Id == request.userInfo.Id);
             
             var map = _mapper.Map(request.userInfo, cus);
-            map.update_at = DateTime.Now;
+            
             
             await _unitOfWork.ExecuteTransactionAsync(() => _unitOfWork.userInfoRepository.Update(map), cancellationToken);
             return request.userInfo;

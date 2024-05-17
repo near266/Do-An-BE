@@ -37,6 +37,7 @@ namespace WebApi.Modules.Email.Services
                 await smtp.SendAsync(email);
                 smtp.Disconnect(true);
 
+
             }
             catch (System.Exception ex)
             {

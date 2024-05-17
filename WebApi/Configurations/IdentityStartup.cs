@@ -25,6 +25,7 @@ namespace WebApi.Configurations
          .AddEntityFrameworkStores<UserDbContext>()
          .AddSignInManager<SignInManager<UserIdentity>>()
          .AddRoles<IdentityRole>()
+         .AddDefaultTokenProviders()
          ;
 
             services.Configure<JWTSettings>(configuration.GetSection("JWTSettings"));

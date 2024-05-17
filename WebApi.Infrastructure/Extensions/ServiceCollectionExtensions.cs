@@ -25,6 +25,10 @@ namespace WebApi.Infrastructure.Extensions
           
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped(typeof(IUserInfoRepository), typeof(UserInfoRepository));
+            services.AddScoped(typeof(IEnterpriseRepository), typeof(EnterpriseRepository));
+            services.AddScoped(typeof(ICareerFieldRepository), typeof(CareerFieldRepository));
+            services.AddScoped(typeof(ICustomRepository), typeof(CustomRepository));
+
 
             //Đăng kí service
 

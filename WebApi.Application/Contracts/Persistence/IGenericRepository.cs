@@ -12,10 +12,11 @@ namespace WebApi.Application.Contracts.Persistence
         public Task<int> CountAsync(Expression<Func<T, bool>> filter);
         public Task<int> CountAsync();
         public Task<T> GetByIdAsync(object id);
+        public Task<List<T>> ToList();
         public Task<Pagination<T>> GetAsync(
            Expression<Func<T, bool>> filter,
-           int pageIndex = 0,
-           int pageSize = 10);
+           int pageIndex,
+           int pageSize);
         public Task<Pagination<T>> ToPagination(int pageIndex, int pageSize);
         public Task<T> FirstOrDefaultAsync(Expression<Func<T, bool>> filter);
         public void Update(T entity);

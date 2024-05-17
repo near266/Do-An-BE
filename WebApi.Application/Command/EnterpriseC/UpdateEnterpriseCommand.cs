@@ -37,7 +37,7 @@ namespace WebApi.Application.Command.EnterpriseC
             var cus = await _unitOfWork.enterpriseRepository.FirstOrDefaultAsync(x => x.Id == request.EnterpriseDTO.Id);
 
             var map = _mapper.Map(request.EnterpriseDTO, cus);
-            map.update_at = DateTime.Now;
+  
 
             await _unitOfWork.ExecuteTransactionAsync(() => _unitOfWork.enterpriseRepository.Update(map), cancellationToken);
             return request.EnterpriseDTO;
