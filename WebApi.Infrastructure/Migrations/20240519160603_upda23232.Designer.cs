@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WebApi.Infrastructure.Persistence;
@@ -11,9 +12,11 @@ using WebApi.Infrastructure.Persistence;
 namespace WebApi.Infrastructure.Migrations
 {
     [DbContext(typeof(CustomerSupportDatabaseContext))]
-    partial class CustomerSupportDatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20240519160603_upda23232")]
+    partial class upda23232
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -27,9 +30,6 @@ namespace WebApi.Infrastructure.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("text");
-
-                    b.Property<int?>("IsLock")
-                        .HasColumnType("integer");
 
                     b.Property<string>("abbreviation_name")
                         .HasColumnType("text");
@@ -137,9 +137,6 @@ namespace WebApi.Infrastructure.Migrations
 
                     b.Property<string>("Account_id")
                         .HasColumnType("text");
-
-                    b.Property<int?>("Lock")
-                        .HasColumnType("integer");
 
                     b.Property<string>("address")
                         .HasColumnType("text");
@@ -479,11 +476,11 @@ namespace WebApi.Infrastructure.Migrations
                     b.Property<string>("phone")
                         .HasColumnType("text");
 
-                    b.Property<int?>("status_id")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("user_id")
+                    b.Property<string>("status_id")
                         .HasColumnType("text");
+
+                    b.Property<int?>("user_id")
+                        .HasColumnType("integer");
 
                     b.HasKey("id");
 

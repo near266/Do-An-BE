@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using WebApi.Application.Contracts.Persistence;
 using WebApi.Modules.Dtos;
 using WebApi.Wrappers.DTOS.EmailDtos;
+using WebApi.Wrappers.DTOS.UserInfoDtos;
 
 
 namespace WebApi.Controllers
@@ -11,6 +12,23 @@ namespace WebApi.Controllers
     [ApiController]
     public class UserController(IUserRepository _userRepository) : ControllerBase
     {
+        [HttpPost("lock-account")]
+        public async Task<IActionResult> Lock( LockRq rq)
+        {
+            var res = await _userRepository.LockUser(rq.Id);
+            if (res == 1)
+            {
+
+            return Ok();
+            }
+            return BadRequest("Account isLock");
+        }
+        [HttpPost("unlock-account")]
+        public async Task<IActionResult> unLock(LockRq model)
+        {
+            await _userRepository.UnLockUser(model.Id);
+            return Ok();
+        }
         [HttpPost("forgot-password")]
         public async Task<IActionResult> ForgotPassword(ForgotPasswordRequest model)
         {
@@ -58,6 +76,12 @@ namespace WebApi.Controllers
         {
 
             return Ok(await _userRepository.ResetPassword(model));
+        }
+        [HttpPost("get-userid")]
+        public async Task<IActionResult> getUserid(string? id)
+        {
+
+            return Ok(await _userRepository.getUserbyId(id));
         }
     }
 }

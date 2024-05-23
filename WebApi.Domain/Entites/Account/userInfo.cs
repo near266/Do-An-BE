@@ -9,6 +9,7 @@ namespace WebApi.Domain.Entites.Account
 {
     public class userInfo : BaseEntity
     {
+        public string? name { get; set; }
        public string? address {  get; set; }
         public string? avatar { get; set; }
         public int? gender_id { get; set; }
@@ -20,6 +21,7 @@ namespace WebApi.Domain.Entites.Account
         public string? district_id { get; set; }
         public string? ward_id { get; set; }
         public string? information { get; set; }
+        public int? Lock { get; set; } = 0; 
 
     }
 }

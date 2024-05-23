@@ -30,6 +30,8 @@ namespace WebApi.Infrastructure.Persistence
 
         public ICareeRepository careeRepository  {get ;}
 
+        public IJob_Post_Candidates job_Post_Candidates { get; }
+
 
         // repositories
 
@@ -46,6 +48,7 @@ namespace WebApi.Infrastructure.Persistence
             CareerFieldRepository = new CareerFieldRepository(_context);
             jobPostRepository =new JobRepository(_context);
             careeRepository=new CareeRepository(_context);
+            job_Post_Candidates=new Job_postCandidateRepository(_context);
          
         }
 

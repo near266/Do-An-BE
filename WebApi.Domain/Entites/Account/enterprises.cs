@@ -36,5 +36,6 @@ namespace WebApi.Domain.Entites.Account
         public string? pricing_plan_id { get; set; }
         public DateTime? pricing_plan_start_at { get; set; }
         public DateTime? pricing_plan_end_at { get; set; }
+        public int? IsLock {  get; set; }=0;
     }
 }

@@ -17,6 +17,7 @@ namespace WebApi.Application.Queries.Job_postQ
     public class SearchJob_postQuery: IRequest <Pagination<job_posts>>
     {
         public string? enterprise_id { get; set; }
+        public string? name { get; set; }
         public int page { get; set; }
         public int pageSize { get; set; }
     }
@@ -41,6 +42,9 @@ namespace WebApi.Application.Queries.Job_postQ
             if (request.enterprise_id == null)
             {
                 cus=await _unitOfWork.jobPostRepository.ToPagination(request.page,request.pageSize);
+            }
+            if(request.name != null) {
+                cus = await _unitOfWork.jobPostRepository.GetAsync(i => request.name.Contains(i.title), request.page, request.pageSize);
             }
             return cus;
         }

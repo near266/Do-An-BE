@@ -3,16 +3,19 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Security.Claims;
 using WebApi.Application.Command.EnterpriseC;
 using WebApi.Application.Command.UserInfoC;
 using WebApi.Application.Contracts.Persistence;
+using WebApi.Application.Models.Dtos;
 using WebApi.Application.Models.Dtos.EnterpriseDTO;
 using WebApi.Application.Models.Dtos.Userinfo;
 using WebApi.Application.Queries.EnterpriseQ;
 using WebApi.Application.Queries.UserInfoQ;
 using WebApi.Modules.Dtos;
+using WebApi.Shared.Constants;
 using WebApi.Wrappers.DTOS.UserInfoDtos;
 
 namespace WebApi.Controllers
@@ -46,6 +49,122 @@ namespace WebApi.Controllers
         }
 
         #region Enterpriese
+        [HttpPost("User/ListUser")]
+
+        public async Task<IActionResult> userListAccount([FromBody] SearchBase rq)
+        {
+            _logger.LogInformation($"Excute request to  EnterpriseCreate : {rq}");
+
+            try
+            {
+                var list1 = new List<AccountDTOs>();
+                var listrq = new ViewAllUserInfoQuery();
+                listrq.page = rq.page;
+                listrq.pageSize = rq.pageSize;
+                 var listRes = await _mediator.Send(listrq);
+
+                foreach (var item in listRes.Items)
+                {
+                    var acount = new AccountDTOs();
+                    acount.id = item.Account_id;
+                    if (acount.id != null)
+                    {
+
+                    acount.avatar = item.avatar;
+                    var user = await _userRepository.getUserbyId(item.Account_id);
+                    acount.name = user.Data.UserName;  
+                    }
+                    list1.Add(acount);
+                }
+                var result = new PagedList<AccountDTOs>();
+                result.Data=list1;
+                result.PageSize=rq.pageSize;
+                result.Page=rq.page;
+
+                
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Controller had problem when running", ex);
+            }
+
+        }
+        [HttpPost("UserInfo/LockAccount")]
+
+        public async Task<IActionResult> UserLockAcc([FromBody] UpdateStatusUserAccountCommand rq)
+        {
+            _logger.LogInformation($"Excute request to  EnterpriseCreate : {rq}");
+
+            try
+            {
+                if (rq.status == 1)
+                {
+
+                    var lockacc = await _userRepository.LockUser(rq.account_id);
+                    if (lockacc == 1)
+                    {
+                        var res = await _mediator.Send(rq);
+
+                    }
+
+                }
+                else
+                {
+                    var lockacc = await _userRepository.UnLockUser(rq.account_id);
+                    if (lockacc == 1)
+                    {
+                        var res = await _mediator.Send(rq);
+
+                    }
+
+                }
+                return Ok(1);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Controller had problem when running", ex);
+            }
+
+        }
+
+        [HttpPost("Enterprise/LockAccount")]
+
+        public async Task<IActionResult> EnterpriseLockAcc([FromBody] UpdateStatusEnterpriseCommand rq)
+        {
+            _logger.LogInformation($"Excute request to  EnterpriseCreate : {rq}");
+
+            try
+            {
+                if (rq.status == 1)
+                {
+
+                var lockacc = await _userRepository.LockUser(rq.account_id);
+                if (lockacc == 1)
+                {
+                var res = await _mediator.Send(rq);
+
+                }
+                    
+                }
+                else
+                {
+                    var lockacc = await _userRepository.UnLockUser(rq.account_id);
+                    if (lockacc == 1)
+                    {
+                        var res = await _mediator.Send(rq);
+
+                    }
+                 
+                }
+                return Ok(1);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Controller had problem when running", ex);
+            }
+
+        }
         [HttpPost("Enterprise/Detail")]
 
         public async Task<IActionResult> EnterpriseDetail([FromBody]ViewDetailEnterpriseQuery rq)
@@ -157,6 +276,24 @@ namespace WebApi.Controllers
             }catch (Exception ex)
             {
                 throw new Exception("Controller had problem when running",ex);
+            }
+
+        }
+        [HttpGet("enteprise/detail")]
+
+        public async Task<IActionResult> EnterpiseByid([FromQuery] ViewEnterrpiseByIdQuery rq)
+        {
+            _logger.LogInformation($"Excute request to  UserInfoCreate : {rq}");
+
+            try
+            {
+
+                var res = await _mediator.Send(rq);
+                return Ok(res);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Controller had problem when running", ex);
             }
 
         }

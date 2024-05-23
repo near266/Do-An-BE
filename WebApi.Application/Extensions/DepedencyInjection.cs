@@ -19,7 +19,9 @@ using WebApi.Application.Queries.CareeFieldsQ;
 using WebApi.Application.Queries.EnterpriseQ;
 using WebApi.Application.Queries.Job_postQ;
 using WebApi.Application.Queries.UserInfoQ;
+using WebApi.Domain.Entites.Account;
 using WebApi.Domain.Entites.Job;
+using WebApi.Shared.Constants;
 
 
 namespace WebApi.Application.Extensions
@@ -32,7 +34,7 @@ namespace WebApi.Application.Extensions
             services.AddTransient<IRequestHandler<UpdateUserInfoCommand, UserInfoDTO>, UpdateUserInfoCommandHandler>();
             services.AddTransient<IRequestHandler<DeleteUserInfoCommand, int>, DeleteUserInfoCommandHandler>();
             services.AddTransient<IRequestHandler<ViewDetailUserInfoQuery, UserInfoDTO>,ViewDetailUserInfoQueryHandler >();
-            services.AddTransient<IRequestHandler<ViewAllUserInfoQuery, Pagination<UserInfoDTO>>,ViewAllUserInfoQueryHandler >();
+            services.AddTransient<IRequestHandler<ViewAllUserInfoQuery, Pagination<userInfo>>,ViewAllUserInfoQueryHandler >();
 
 
             services.AddTransient<IRequestHandler<CreateEnterpriseCommand, EnterpriseDTO>, CreateEnterpriseCommandHandler>();
@@ -52,6 +54,16 @@ namespace WebApi.Application.Extensions
             services.AddTransient<IRequestHandler<UpdateJobPostCommand,job_posts>, UpdateJobPostCommandHandler>();
             services.AddTransient<IRequestHandler<ViewDetailFieldsQuery, career_fields>, ViewDetailFieldsQueryHandler>();
             services.AddTransient<IRequestHandler<ViewDetailCareeQuery, career>, ViewDetailCareeQueryHandler>();
+
+            services.AddTransient<IRequestHandler<AddCandidatePostCommand, job_post_candidates>, AddCandidatePostCommandHandler>();
+            services.AddTransient<IRequestHandler<UpdateCandidateCommnad, job_post_candidates>, UpdateCandidateCommnadHandler>();
+            services.AddTransient<IRequestHandler<DetailCadidatePostQuery, job_post_candidates>, DetailCadidatePostQueryHandler>();
+
+            services.AddTransient<IRequestHandler<ViewCandidateByEnterpiseQuery, PagedList<job_post_candidates>>, ViewCandidateByEnterpiseQueryHandler>();
+            services.AddTransient<IRequestHandler<ViewEnterrpiseByIdQuery,enterprises> ,ViewEnterrpiseByIdQueryHandler>();
+
+            services.AddTransient<IRequestHandler<UpdateStatusEnterpriseCommand, enterprises>, UpdateStatusEnterpriseCommandHandler>();
+            services.AddTransient<IRequestHandler<UpdateStatusUserAccountCommand, userInfo>, UpdateStatusUserAccountCommandHandler>();
 
             return services;
         }

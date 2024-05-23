@@ -10,9 +10,11 @@ namespace WebApi.Application.Models.Dtos.Userinfo
     public class UserInfoDTO
     {
         public string? Id { get; set; }
+        public string? name { get; set; }
         public string? address { get; set; }
         public string? avatar { get; set; }
         public int? gender_id { get; set; }
+        public string? information {  get; set; }    
 
         public string? birthday { get; set; }
         public string? Account_id { get; set; }

@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,8 @@ using System.Threading.Tasks;
 using WebApi.Application.AutoMapper;
 using WebApi.Application.Contracts.Persistence;
 using WebApi.Configurations;
+using WebApi.Modules.User.Domain.Entites;
+using WebApi.Modules.User.Infrastructure.Persistence;
 using WebApi.Modules.User.Infrastructure.Persistence.Repositories;
 
 
@@ -28,7 +31,7 @@ namespace WebApi.Modules.User.Infrastructure.Extensions
             services.AddScoped(typeof(IUserRepository), typeof(UserRepository));
 
             services.AddScoped<JWTSettings>();
-
+            services.AddScoped<SignInManager<UserIdentity>, CustomSignInManager>();
 
             //Đăng kí service
 

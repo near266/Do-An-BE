@@ -53,7 +53,6 @@ namespace WebApi.Modules.User.Infrastructure.Persistence.Repositories
             };
             var user = await userManager.FindByEmailAsync(newUser.Email);
             if (user is not null) return new GeneralResponse(false, "User registered already");
-
             var createUser = await userManager.CreateAsync(newUser!, userDTO.Password);
             if (!createUser.Succeeded) return new GeneralResponse(false, "Error occured.. please try again");
 
@@ -90,9 +89,14 @@ namespace WebApi.Modules.User.Infrastructure.Persistence.Repositories
         public async Task<Response<AuthenticationResponse>> LoginAccount(LoginDTO loginDTO)
         {
             var user = await userManager.FindByEmailAsync(loginDTO.Email);
+            
             if (user == null)
             {
                 throw new ApiException($"No Accounts Registered with {loginDTO.Email}.");
+            }
+            if(user.IsLockedOut)
+            {
+                throw new ApiException($"Account Is Lock '{loginDTO.Email}'.");
             }
             var result = await signInManager.PasswordSignInAsync(user.UserName , loginDTO.Password, false, lockoutOnFailure: false);
             if (!result.Succeeded)
@@ -332,6 +336,55 @@ namespace WebApi.Modules.User.Infrastructure.Persistence.Repositories
 
             await userManager.AddToRoleAsync(newUser, "Enterprise");
             return new GeneralResponse(true, "Account Created");
+        }
+
+        public async Task<Response<AuthenticationResponse>> getUserbyId(string id)
+        {
+            AuthenticationResponse response = new AuthenticationResponse();
+
+            var check = await userManager.FindByIdAsync(id);
+            if (check is null) { throw new Exception("not found Account"); }
+            response.UserName = check.UserName;
+            response.Id = check.Id;
+            return new Response<AuthenticationResponse>(response, $"Authenticated {check.UserName}");
+        }
+
+        public async Task<int> LockUser(string UserId)
+        {
+            var user = await userManager.FindByIdAsync(UserId);
+            if (user == null)
+            {
+                return 0;
+            }
+
+            user.IsLockedOut = true;
+            var result = await userManager.UpdateAsync(user);
+
+            if (result.Succeeded)
+            {
+                return 1;
+            }
+
+            return 0;
+        }
+
+        public async Task<int> UnLockUser(string UserId)
+        {
+            var user = await userManager.FindByIdAsync(UserId);
+            if (user == null)
+            {
+                return 0;
+            }
+
+            user.IsLockedOut = false;
+            var result = await userManager.UpdateAsync(user);
+
+            if (result.Succeeded)
+            {
+                return 1;
+            }
+
+            return 0;
         }
     }
 }

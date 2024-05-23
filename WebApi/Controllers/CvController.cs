@@ -120,6 +120,74 @@ namespace WebApi.Controllers
         }
         #endregion
         #region Caree
+        [HttpPost("Candidate/search")]
+
+        public async Task<IActionResult> CandidateSearch([FromBody] ViewCandidateByEnterpiseQuery rq)
+        {
+            _logger.LogInformation($"Excute request to  EnterpriseCreate : {rq}");
+
+            try
+            {
+
+                var res = await _mediator.Send(rq);
+                return Ok(res);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Controller had problem when running", ex);
+            }
+        }
+        [HttpPost("Candidate/create")]
+
+        public async Task<IActionResult> CandidateCreate([FromBody] AddCandidatePostCommand rq)
+        {
+            _logger.LogInformation($"Excute request to  EnterpriseCreate : {rq}");
+
+            try
+            {
+
+                var res = await _mediator.Send(rq);
+                return Ok(res);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Controller had problem when running", ex);
+            }
+        }
+        [HttpPut("Candidate/update")]
+
+        public async Task<IActionResult> CandidateUpdate([FromBody] UpdateCandidateCommnad rq)
+        {
+            _logger.LogInformation($"Excute request to  EnterpriseCreate : {rq}");
+
+            try
+            {
+
+                var res = await _mediator.Send(rq);
+                return Ok(res);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Controller had problem when running", ex);
+            }
+        }
+        [HttpGet("Candidate/update")]
+
+        public async Task<IActionResult> CandidateDetail([FromQuery] DetailCadidatePostQuery rq)
+        {
+            _logger.LogInformation($"Excute request to  EnterpriseCreate : {rq}");
+
+            try
+            {
+
+                var res = await _mediator.Send(rq);
+                return Ok(res);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Controller had problem when running", ex);
+            }
+        }
         [HttpPost("Cv/create-careerfields")]
 
         public async Task<IActionResult> createCareerFields([FromBody] CreateCareerFieldsCommand rq)
