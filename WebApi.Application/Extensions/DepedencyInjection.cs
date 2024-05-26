@@ -13,6 +13,7 @@ using WebApi.Application.Command.JobC;
 using WebApi.Application.Command.UserInfoC;
 using WebApi.Application.Contracts.Persistence;
 using WebApi.Application.Models;
+using WebApi.Application.Models.Dtos;
 using WebApi.Application.Models.Dtos.EnterpriseDTO;
 using WebApi.Application.Models.Dtos.Userinfo;
 using WebApi.Application.Queries.CareeFieldsQ;
@@ -34,7 +35,7 @@ namespace WebApi.Application.Extensions
             services.AddTransient<IRequestHandler<UpdateUserInfoCommand, UserInfoDTO>, UpdateUserInfoCommandHandler>();
             services.AddTransient<IRequestHandler<DeleteUserInfoCommand, int>, DeleteUserInfoCommandHandler>();
             services.AddTransient<IRequestHandler<ViewDetailUserInfoQuery, UserInfoDTO>,ViewDetailUserInfoQueryHandler >();
-            services.AddTransient<IRequestHandler<ViewAllUserInfoQuery, Pagination<userInfo>>,ViewAllUserInfoQueryHandler >();
+            services.AddTransient<IRequestHandler<ViewAllUserInfoQuery, PagedList<userInfo>>,ViewAllUserInfoQueryHandler >();
 
 
             services.AddTransient<IRequestHandler<CreateEnterpriseCommand, EnterpriseDTO>, CreateEnterpriseCommandHandler>();
@@ -59,11 +60,16 @@ namespace WebApi.Application.Extensions
             services.AddTransient<IRequestHandler<UpdateCandidateCommnad, job_post_candidates>, UpdateCandidateCommnadHandler>();
             services.AddTransient<IRequestHandler<DetailCadidatePostQuery, job_post_candidates>, DetailCadidatePostQueryHandler>();
 
-            services.AddTransient<IRequestHandler<ViewCandidateByEnterpiseQuery, PagedList<job_post_candidates>>, ViewCandidateByEnterpiseQueryHandler>();
+            services.AddTransient<IRequestHandler<ViewCandidateByEnterpiseQuery, PagedList<CandidatesDtos>>, ViewCandidateByEnterpiseQueryHandler>();
             services.AddTransient<IRequestHandler<ViewEnterrpiseByIdQuery,enterprises> ,ViewEnterrpiseByIdQueryHandler>();
 
             services.AddTransient<IRequestHandler<UpdateStatusEnterpriseCommand, enterprises>, UpdateStatusEnterpriseCommandHandler>();
             services.AddTransient<IRequestHandler<UpdateStatusUserAccountCommand, userInfo>, UpdateStatusUserAccountCommandHandler>();
+            services.AddTransient<IRequestHandler<ViewAllEnterpriseCommand, PagedList<enterprises>>, ViewAllEnterpriseCommandHandler>();
+            services.AddTransient<IRequestHandler<ListPostTypeQuery, PagedList<JobListDtos>>, ListPostTypeQueryHandler>();
+            services.AddTransient<IRequestHandler<ApproveJobPostCommand, int>, ApproveJobPostCommandHandler>();
+            services.AddTransient<IRequestHandler<ViewCandidateUserIdQuery, PagedList<UserPostCandidate>>, ViewCandidateUserIdQueryHandler>();
+            services.AddTransient<IRequestHandler<PostForUserQuery, PagedList<UserPostCandidate>>, PostForUserQueryHandler>();
 
             return services;
         }

@@ -28,6 +28,78 @@ namespace WebApi.Controllers
             _mapper = mapper;
         }
         #region Job-Post
+        [HttpPost("Candidate/PostForUser")]
+
+        public async Task<IActionResult> PostForUser([FromBody] PostForUserQuery rq)
+        {
+            _logger.LogInformation($"Excute request to  EnterpriseCreate : {rq}");
+
+            try
+            {
+
+                var res = await _mediator.Send(rq);
+                return Ok(res);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Controller had problem when running", ex);
+            }
+
+        }
+        [HttpPost("Candidate/listPostuserId")]
+
+        public async Task<IActionResult> listPostuserId([FromBody] ViewCandidateUserIdQuery rq)
+        {
+            _logger.LogInformation($"Excute request to  EnterpriseCreate : {rq}");
+
+            try
+            {
+
+                var res = await _mediator.Send(rq);
+                return Ok(res);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Controller had problem when running", ex);
+            }
+
+        }
+        [HttpPost("job-post/list-bytype")]
+
+        public async Task<IActionResult> ListPostByType([FromBody] ListPostTypeQuery rq)
+        {
+            _logger.LogInformation($"Excute request to  EnterpriseCreate : {rq}");
+
+            try
+            {
+
+                var res = await _mediator.Send(rq);
+                return Ok(res);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Controller had problem when running", ex);
+            }
+
+        }
+        [HttpPost("job-post/Approve")]
+
+        public async Task<IActionResult> jobPostApprove([FromBody] ApproveJobPostCommand rq)
+        {
+            _logger.LogInformation($"Excute request to  EnterpriseCreate : {rq}");
+
+            try
+            {
+
+                var res = await _mediator.Send(rq);
+                return Ok(res);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Controller had problem when running", ex);
+            }
+
+        }
         [HttpPost("job-post/create")]
 
         public async Task<IActionResult> jobPostCreate([FromBody] CreateJob_postCommand rq)
@@ -84,7 +156,7 @@ namespace WebApi.Controllers
         }
         [HttpDelete("job-post/delete")]
 
-        public async Task<IActionResult> jobPostDelete([FromBody] DeleteJob_postCommand rq)
+        public async Task<IActionResult> jobPostDelete([FromQuery] DeleteJob_postCommand rq)
         {
             _logger.LogInformation($"Excute request to  EnterpriseCreate : {rq}");
 

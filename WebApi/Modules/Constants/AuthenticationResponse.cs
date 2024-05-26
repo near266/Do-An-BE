@@ -17,6 +17,7 @@ namespace WebApi.Modules.Constants
         public bool IsVerified { get; set; }
         public string JWTToken { get; set; }
         public string RefreshToken { get; set; }
+        public int? IsBan { get; set; } = 0;
 
     }
 }

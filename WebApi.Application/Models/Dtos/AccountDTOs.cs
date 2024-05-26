@@ -10,7 +10,9 @@ namespace WebApi.Application.Models.Dtos
     {
         public string? id { get; set; }
         public string? name { get; set; }
+        public string? phone { get; set; }  
+        public string? email { get; set; }
         public string? avatar { get; set; }
-       public string? status {  get; set; }
+        public int? status { get; set; } = 0;
     }
 }

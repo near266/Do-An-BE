@@ -36,7 +36,7 @@ namespace WebApi.Domain.Entites.Job
         public string? contact_phone { get; set; }
         public string? contact_email { get; set; }
         public string? status_id { get; set; }
-        public string? approve_status_id { get; set; }
+        public int? approve_status_id { get; set; }
         public string? reason_of_view { get; set; }
         public int? total_view { get; set; }
         public int? total_cv { get; set; }

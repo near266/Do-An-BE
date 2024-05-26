@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Transactions;
 using WebApi.Application.Command.CareerFieldC;
 using WebApi.Application.Command.JobC;
+using WebApi.Application.Models.Dtos;
 using WebApi.Application.Models.Dtos.EnterpriseDTO;
 using WebApi.Application.Models.Dtos.Userinfo;
 using WebApi.Application.Queries.Job_postQ;
@@ -34,6 +35,8 @@ namespace WebApi.Application.AutoMapper
             CreateMap<job_post_candidates, job_post_candidates>().ReverseMap().ForAllMembers(x => x.Condition((source, target, sourceValue) => sourceValue != null));
             CreateMap<job_post_candidates, AddCandidatePostCommand>().ReverseMap().ForAllMembers(x => x.Condition((source, target, sourceValue) => sourceValue != null));
             CreateMap<job_post_candidates, UpdateCandidateCommnad>().ReverseMap().ForAllMembers(x => x.Condition((source, target, sourceValue) => sourceValue != null));
+            CreateMap<job_post_candidates, CandidatesDtos>().ReverseMap().ForAllMembers(x => x.Condition((source, target, sourceValue) => sourceValue != null));
+            CreateMap<job_post_candidates, UserPostCandidate>().ReverseMap().ForAllMembers(x => x.Condition((source, target, sourceValue) => sourceValue != null));
 
         }
 

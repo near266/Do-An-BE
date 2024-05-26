@@ -499,8 +499,8 @@ namespace WebApi.Infrastructure.Migrations
                     b.Property<string>("address")
                         .HasColumnType("text");
 
-                    b.Property<string>("approve_status_id")
-                        .HasColumnType("text");
+                    b.Property<int?>("approve_status_id")
+                        .HasColumnType("integer");
 
                     b.Property<string>("benefit")
                         .HasColumnType("text");

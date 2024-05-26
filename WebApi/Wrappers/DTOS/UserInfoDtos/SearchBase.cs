@@ -2,6 +2,7 @@
 {
     public class SearchBase
     {
+        public int status { get; set; }
         public int page { get; set; }
         public int pageSize { get; set; }
     }

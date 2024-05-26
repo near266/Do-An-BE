@@ -94,14 +94,23 @@ namespace WebApi.Modules.User.Infrastructure.Persistence.Repositories
             {
                 throw new ApiException($"No Accounts Registered with {loginDTO.Email}.");
             }
-            if(user.IsLockedOut)
-            {
-                throw new ApiException($"Account Is Lock '{loginDTO.Email}'.");
-            }
             var result = await signInManager.PasswordSignInAsync(user.UserName , loginDTO.Password, false, lockoutOnFailure: false);
             if (!result.Succeeded)
             {
                 throw new ApiException($"Invalid Credentials for '{loginDTO.Email  }'.");
+            }
+            if(user.IsLockedOut)
+            {
+                AuthenticationResponse Ban = new AuthenticationResponse
+                {
+                    Id = null,
+                    JWTToken = "",
+                    Email = user.Email,
+                    UserName = user.UserName,
+                    IsBan = 1,
+                    Roles = [],
+                };
+                return new Response<AuthenticationResponse>(Ban, $"IsBan {user.UserName}");
             }
 
             JwtSecurityToken jwtSecurityToken = await GenerateJWTToken(user);
@@ -346,6 +355,7 @@ namespace WebApi.Modules.User.Infrastructure.Persistence.Repositories
             if (check is null) { throw new Exception("not found Account"); }
             response.UserName = check.UserName;
             response.Id = check.Id;
+            response.Email = check.Email;
             return new Response<AuthenticationResponse>(response, $"Authenticated {check.UserName}");
         }
 

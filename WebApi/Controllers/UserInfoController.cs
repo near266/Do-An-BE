@@ -59,11 +59,12 @@ namespace WebApi.Controllers
             {
                 var list1 = new List<AccountDTOs>();
                 var listrq = new ViewAllUserInfoQuery();
+                listrq.status = rq.status;
                 listrq.page = rq.page;
                 listrq.pageSize = rq.pageSize;
                  var listRes = await _mediator.Send(listrq);
 
-                foreach (var item in listRes.Items)
+                foreach (var item in listRes.Data)
                 {
                     var acount = new AccountDTOs();
                     acount.id = item.Account_id;
@@ -72,7 +73,10 @@ namespace WebApi.Controllers
 
                     acount.avatar = item.avatar;
                     var user = await _userRepository.getUserbyId(item.Account_id);
-                    acount.name = user.Data.UserName;  
+                    acount.name = user.Data.UserName;
+                        acount.status = item.Lock;
+                        acount.phone = item.phone;
+                        acount.email=user.Data.Email;
                     }
                     list1.Add(acount);
                 }
@@ -82,6 +86,51 @@ namespace WebApi.Controllers
                 result.Page=rq.page;
 
                 
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Controller had problem when running", ex);
+            }
+
+        }
+        [HttpPost("Enterprise/ListEnterprise")]
+
+        public async Task<IActionResult> EnterListAccount([FromBody] SearchBase rq)
+        {
+            _logger.LogInformation($"Excute request to  EnterpriseCreate : {rq}");
+
+            try
+            {
+                var list1 = new List<AccountDTOs>();
+                var listrq = new ViewAllEnterpriseCommand();
+                listrq.status = rq.status;
+                listrq.page = rq.page;
+                listrq.pageSize = rq.pageSize;
+                var listRes = await _mediator.Send(listrq);
+
+                foreach (var item in listRes.Data)
+                {
+                    var acount = new AccountDTOs();
+                    acount.id = item.account_id;
+                    if (acount.id != null)
+                    {
+
+                        acount.avatar = item.avatar;
+                        var user = await _userRepository.getUserbyId(item.account_id);
+                        acount.name = user.Data.UserName;
+                        acount.status = item.IsLock ==null? 0 : item.IsLock ;
+                        acount.phone=item.phone;
+                        acount.email=user.Data.Email;
+                    }
+                    list1.Add(acount);
+                }
+                var result = new PagedList<AccountDTOs>();
+                result.Data = list1;
+                result.PageSize = rq.pageSize;
+                result.Page = rq.page;
+
+
                 return Ok(result);
             }
             catch (Exception ex)
