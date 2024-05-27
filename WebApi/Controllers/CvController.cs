@@ -30,7 +30,7 @@ namespace WebApi.Controllers
         #region Job-Post
         [HttpPost("Candidate/Delete")]
 
-        public async Task<IActionResult> PostForUser([FromBody] DeleteCandidateCommand rq)
+        public async Task<IActionResult> CadidateDetete([FromBody] DeleteCandidateCommand rq)
         {
             _logger.LogInformation($"Excute request to  EnterpriseCreate : {rq}");
 
