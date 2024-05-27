@@ -9,6 +9,7 @@ namespace WebApi.Application.Models.Dtos
     public class UserPostCandidate
     {
         public int? id { get; set; }
+        public string overView { get; set; }
         public string? job_post_id { get; set; }
         public string? title { get; set; }
         public string? image_url { get; set; }

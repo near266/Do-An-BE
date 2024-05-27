@@ -28,6 +28,24 @@ namespace WebApi.Controllers
             _mapper = mapper;
         }
         #region Job-Post
+        [HttpPost("Candidate/Delete")]
+
+        public async Task<IActionResult> PostForUser([FromBody] DeleteCandidateCommand rq)
+        {
+            _logger.LogInformation($"Excute request to  EnterpriseCreate : {rq}");
+
+            try
+            {
+
+                var res = await _mediator.Send(rq);
+                return Ok(res);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Controller had problem when running", ex);
+            }
+
+        }
         [HttpPost("Candidate/PostForUser")]
 
         public async Task<IActionResult> PostForUser([FromBody] PostForUserQuery rq)

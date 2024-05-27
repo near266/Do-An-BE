@@ -70,6 +70,7 @@ namespace WebApi.Application.Extensions
             services.AddTransient<IRequestHandler<ApproveJobPostCommand, int>, ApproveJobPostCommandHandler>();
             services.AddTransient<IRequestHandler<ViewCandidateUserIdQuery, PagedList<UserPostCandidate>>, ViewCandidateUserIdQueryHandler>();
             services.AddTransient<IRequestHandler<PostForUserQuery, PagedList<UserPostCandidate>>, PostForUserQueryHandler>();
+            services.AddTransient<IRequestHandler<DeleteCandidateCommand, int>,DeleteCandidateCommandHandler >();
 
             return services;
         }

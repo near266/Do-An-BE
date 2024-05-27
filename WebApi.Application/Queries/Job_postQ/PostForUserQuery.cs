@@ -46,6 +46,7 @@ namespace WebApi.Application.Queries.Job_postQ
                 var enter = await _repo.getEnterpriseById(post.enterprise_id);
                 var map = new UserPostCandidate();
                 map.job_post_id = post.Id;
+                map.overView = post.overview;
                 map.image_url = post.image_url;
                 map.title = post.title;
                 map.city = post.city;
