@@ -53,7 +53,10 @@ namespace WebApi.Infrastructure.Persistence.Repositories
            var check = await _Db.job_post_candidates.Where(i=>i.id == id).FirstOrDefaultAsync();    
             if(check == null)
             {
-                _Db.job_post_candidates.Remove(check); return 1;
+                _Db.job_post_candidates.Remove(check);
+                await _Db.SaveChangesAsync();
+                return 1;
+                
             }
             return 0;
         }
