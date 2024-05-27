@@ -280,6 +280,11 @@ namespace WebApi.Modules.User.Infrastructure.Persistence.Repositories
             var result = await userManager.ResetPasswordAsync(account, code, model.Password);
             if (result.Succeeded)
             {
+                var rq = new EmailSend();
+                rq.Sub = "Eztek";
+                rq.body = $"New Password is:{model.ConfirmPassword}";
+                rq.to=account.Email;
+                await emailServices.SendAsyncV2(rq);
                 return new Response<string>(model.UserName, message: $"Password Resetted.");
             }
             else

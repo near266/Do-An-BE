@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using WebApi.Application.Contracts.Persistence;
 using WebApi.Modules.Dtos;
+using WebApi.Modules.Email.Interface;
 using WebApi.Wrappers.DTOS.EmailDtos;
 using WebApi.Wrappers.DTOS.UserInfoDtos;
 
@@ -74,7 +75,7 @@ namespace WebApi.Controllers
         [HttpPost("reset-password")]
         public async Task<IActionResult> ResetPassword(ResetPasswordRequest model)
         {
-
+          
             return Ok(await _userRepository.ResetPassword(model));
         }
         [HttpPost("get-userid")]
