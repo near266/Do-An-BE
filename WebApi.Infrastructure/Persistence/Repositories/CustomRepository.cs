@@ -51,7 +51,7 @@ namespace WebApi.Infrastructure.Persistence.Repositories
         public async Task<int> DeleteCandidate(int id)
         {
            var check = await _Db.job_post_candidates.Where(i=>i.id == id).FirstOrDefaultAsync();    
-            if(check == null)
+            if(check != null)
             {
                 _Db.job_post_candidates.Remove(check);
                 await _Db.SaveChangesAsync();
