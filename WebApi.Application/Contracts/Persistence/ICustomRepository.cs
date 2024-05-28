@@ -15,7 +15,7 @@ namespace WebApi.Application.Contracts.Persistence
     {
         Task<job_posts> updateV2(job_posts job_Posts);
         Task<job_post_candidates> UpdateCandidatePost(job_post_candidates job_post_candidates);
-        Task<PagedList<job_post_candidates>> Search(int? idFields, string? enterprise_id,int page , int pageSize);   
+        Task<PagedList<job_post_candidates>> Search( string? name,    int? status,   int? idFields, string? enterprise_id,int page , int pageSize);   
         Task<enterprises> getEnterpriseById(string? id);
         Task<enterprises> UpdatestatusEnterprise(string accountId,int? status);
         Task<userInfo> UpdateStatusInfo(string accountId,int? status);   

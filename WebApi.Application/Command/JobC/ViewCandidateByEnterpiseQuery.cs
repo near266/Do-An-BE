@@ -16,6 +16,8 @@ namespace WebApi.Application.Command.JobC
     public class ViewCandidateByEnterpiseQuery : IRequest<PagedList<CandidatesDtos>>
     {
         public int? idFields { get; set; }
+        public int? status {  get; set; }
+        public string? name { get; set; }
         public string? enterprise_id { get; set; }
         public int page { get; set; }
         public int pageSize { get; set; }
@@ -38,7 +40,7 @@ namespace WebApi.Application.Command.JobC
 
             _logger.LogInformation("UpdateComand");
             var ls = new List<CandidatesDtos>();
-            var cus = await _repo.Search(request.idFields,request.enterprise_id,request.page,request.pageSize);
+            var cus = await _repo.Search(request.name,request.status,request.idFields,request.enterprise_id,request.page,request.pageSize);
             foreach( var candidate in cus.Data) {
                 var user = await _repo.GetInfoUserId(candidate.user_id);
                 var post = await _repo.GetJobPostsById(candidate.job_post_id);

@@ -63,7 +63,7 @@ namespace WebApi.Infrastructure.Persistence.Repositories
 
         public async Task<PagedList<job_post_candidates>> getCandidateByUserId(string? tilte, int? fileds_id, string userId, int page, int pageSize)
         {
-            var qr = _Db.job_post_candidates.AsQueryable();
+            var qr = _Db.job_post_candidates.Where(i=>i.user_id==userId).AsQueryable();
             if (tilte != null)
             {
             var job = await _Db.job_Posts.Where(i => i.title.Contains(tilte)).ToListAsync();
@@ -143,7 +143,7 @@ namespace WebApi.Infrastructure.Persistence.Repositories
             };
         }
 
-        public async Task<PagedList<job_post_candidates>> Search(int? idFields, string? enterprise_id, int page, int pageSize)
+        public async Task<PagedList<job_post_candidates>> Search(string? name,int? status, int? idFields, string? enterprise_id, int page, int pageSize)
         {
           var check = await _Db.job_Posts.Where(i=>i.enterprise_id==enterprise_id).ToListAsync();
             if (idFields != null)
@@ -151,12 +151,30 @@ namespace WebApi.Infrastructure.Persistence.Repositories
                 check=check.Where(i=>i.career_field_id==idFields).ToList();
 
             }
+            if(status!= null)
+            {
+                
+            }
             var listid = check.Select(i=>i.Id).ToList();
             var ls = await _Db.job_post_candidates.ToListAsync();
             var post = await _Db.job_post_candidates.Where(i => listid.Contains(i.job_post_id))
                 .Skip((page-1)*pageSize).Take(pageSize)
                 .OrderByDescending(i=>i.created_at)
                 .ToListAsync();
+            if(status!= null)
+            {
+                 post = await _Db.job_post_candidates.Where(i => listid.Contains(i.job_post_id) && i.status_id==status)
+             .Skip((page - 1) * pageSize).Take(pageSize)
+             .OrderByDescending(i => i.created_at)
+             .ToListAsync();
+            }
+            if(name!= null)
+            {
+                post = await _Db.job_post_candidates.Where(i => listid.Contains(i.job_post_id) && i.name.Contains(name))
+          .Skip((page - 1) * pageSize).Take(pageSize)
+          .OrderByDescending(i => i.created_at)
+          .ToListAsync();
+            }
             return new PagedList<job_post_candidates>()
             {
                 Page = page,
